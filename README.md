@@ -4,31 +4,28 @@ Survey-style Meta opt-in for **partners.taxequityprofessionals.info**: qualifica
 
 ## Stack
 
-- **Client:** React (Vite), mobile-first one-question-per-step survey
-- **Server:** Node (Express) — validates submissions, POSTs standard JSON to GHL inbound webhook
+- **Next.js 15** (App Router) — React survey UI + `/api/leads` for GHL webhook
+- Deploy on **Vercel** (connected to GitHub)
 
 ## Quick start
 
 ```bash
-npm run install:all
-cp server/.env.example server/.env
-cp client/.env.example client/.env
+npm install
+cp .env.example .env.local
 npm run dev
 ```
 
-- Survey: http://localhost:5173  
-- API (proxied): http://localhost:5173/api/leads  
+Open http://localhost:3000
 
-Without `GHL_INBOUND_WEBHOOK_URL`, the server logs the JSON payload to the console instead of forwarding.
+Without `GHL_INBOUND_WEBHOOK_URL`, the API logs the JSON payload to the server console instead of forwarding.
 
-## Environment
+## Environment (Vercel + `.env.local`)
 
-| Variable | Where | Purpose |
+| Variable | Scope | Purpose |
 |----------|--------|---------|
-| `GHL_INBOUND_WEBHOOK_URL` | `server/.env` | GHL inbound webhook (when ready) |
-| `CLIENT_ORIGIN` | `server/.env` | Production origin (`https://partners.taxequityprofessionals.info`) |
-| `VITE_FB_PIXEL_ID` | `client/.env` | Meta Pixel (when ready) |
-| `VITE_GHL_CALENDAR_EMBED_URL` | `client/.env` | iframe `src` for embedded calendar |
+| `GHL_INBOUND_WEBHOOK_URL` | Server | GHL inbound webhook |
+| `NEXT_PUBLIC_FB_PIXEL_ID` | Public | Meta Pixel (when ready) |
+| `NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL` | Public | Thank-you calendar iframe `src` |
 
 ## Webhook payload
 
@@ -36,14 +33,11 @@ See [docs/webhook-payload.md](./docs/webhook-payload.md).
 
 Sub-$100k expected liability (`20-50k`, `50-100k`) adds tag **`sub-100k-liability`**.
 
-## Production build
+## Deploy
 
-```bash
-npm run build
-npm start
-```
+Push to `main` on GitHub; Vercel runs `next build` automatically.
 
-Serves the built React app from the Express server (single deploy target).
+Point **partners.taxequityprofessionals.info** at the Vercel project and set environment variables in the Vercel dashboard.
 
 ## Facebook ad URL (tracking)
 

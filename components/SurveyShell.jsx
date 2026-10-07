@@ -10,7 +10,12 @@ export default function SurveyShell({
   return (
     <div className="page">
       <header className="site-header">
-        <a className="brand" href="https://taxequityprofessionals.info" target="_blank" rel="noreferrer">
+        <a
+          className="brand"
+          href="https://taxequityprofessionals.info"
+          target="_blank"
+          rel="noreferrer"
+        >
           <img
             src={BADGE_SRC}
             alt="Tax Equity Professionals"

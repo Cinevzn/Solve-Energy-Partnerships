@@ -34,10 +34,6 @@ body {
   line-height: 1.5;
 }
 
-#root {
-  min-height: 100dvh;
-}
-
 .page {
   min-height: 100dvh;
   display: flex;

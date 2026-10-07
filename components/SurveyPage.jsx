@@ -1,8 +1,10 @@
+"use client";
+
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import SurveyShell from "../components/SurveyShell.jsx";
-import { trackLead } from "../lib/metaPixel.js";
-import { submitLead } from "../lib/submitLead.js";
+import { useRouter } from "next/navigation";
+import SurveyShell from "@/components/SurveyShell";
+import { trackLead } from "@/lib/metaPixel";
+import { submitLead } from "@/lib/submitLead";
 
 const INITIAL = {
   taxLiability2026: "",
@@ -70,7 +72,7 @@ const STEPS = [
 ];
 
 export default function SurveyPage() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [stepIndex, setStepIndex] = useState(0);
   const [form, setForm] = useState(INITIAL);
   const [submitting, setSubmitting] = useState(false);
@@ -115,7 +117,7 @@ export default function SurveyPage() {
     try {
       const result = await submitLead(form);
       trackLead(result.eventId);
-      navigate("/thank-you", { replace: true });
+      router.replace("/thank-you");
     } catch (e) {
       setError(e.message);
     } finally {

@@ -1,6 +1,8 @@
-import SurveyShell from "../components/SurveyShell.jsx";
+"use client";
 
-const CALENDAR_URL = import.meta.env.VITE_GHL_CALENDAR_EMBED_URL?.trim();
+import SurveyShell from "@/components/SurveyShell";
+
+const CALENDAR_URL = process.env.NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL?.trim();
 
 export default function ThankYouPage() {
   return (
@@ -24,8 +26,8 @@ export default function ThankYouPage() {
             <div className="calendar-placeholder">
               <p>
                 Calendar embed will appear here once{" "}
-                <code>VITE_GHL_CALENDAR_EMBED_URL</code> is configured with your Go High Level
-                booking link.
+                <code>NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL</code> is configured with your Go High
+                Level booking link.
               </p>
             </div>
           )}
