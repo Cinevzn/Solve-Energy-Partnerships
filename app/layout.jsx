@@ -2,7 +2,7 @@ import TrackingInit from "@/components/TrackingInit";
 import "./globals.css";
 
 export const metadata = {
-  title: "Tax Equity Professionals | Partner Survey",
+  title: "Maximizing Tax Benefits",
   description:
     "See if advanced tax equity strategies may fit your situation. Quick survey for accredited and high-income taxpayers.",
   metadataBase: new URL("https://partners.taxequityprofessionals.info"),
