@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import SurveyShell from "@/components/SurveyShell";
 import { trackLead } from "@/lib/metaPixel";
+import { formatPhoneDisplay, isCompleteUsPhone } from "@/lib/phone";
 import { submitLead } from "@/lib/submitLead";
 
 const INITIAL = {
@@ -95,7 +96,7 @@ export default function SurveyPage() {
         form.firstName.trim() &&
         form.lastName.trim() &&
         form.email.trim() &&
-        form.phone.trim().length >= 10
+        isCompleteUsPhone(form.phone)
       );
     }
     return Boolean(form[step.id]);
@@ -133,6 +134,10 @@ export default function SurveyPage() {
 
   function handleChoice(value) {
     setField(step.id, value);
+  }
+
+  function handlePhoneChange(raw) {
+    setField("phone", formatPhoneDisplay(raw));
   }
 
   return (
@@ -201,10 +206,16 @@ export default function SurveyPage() {
               <input
                 type="tel"
                 autoComplete="tel"
-                inputMode="tel"
+                inputMode="numeric"
                 placeholder="(555) 555-5555"
+                maxLength={14}
                 value={form.phone}
-                onChange={(e) => setField("phone", e.target.value)}
+                onChange={(e) => handlePhoneChange(e.target.value)}
+                onPaste={(e) => {
+                  e.preventDefault();
+                  const text = e.clipboardData.getData("text");
+                  handlePhoneChange(text);
+                }}
               />
             </label>
             <label className="hp" aria-hidden="true">
