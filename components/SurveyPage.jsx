@@ -67,8 +67,8 @@ const STEPS = [
   {
     id: "contact",
     type: "contact",
-    title: "Where should we send your results?",
-    subtitle: "A strategist will review your answers and follow up if you qualify.",
+    title: "Where should we send your tax strategies?",
+    subtitle: "A strategist will contact you shortly to confirm eligibility.",
   },
 ];
 
@@ -250,7 +250,11 @@ export default function SurveyPage() {
             onClick={handleNext}
             disabled={submitting || !canContinue()}
           >
-            {submitting ? "Submitting…" : stepIndex === STEPS.length - 1 ? "See my results" : "Continue"}
+            {submitting
+              ? "Submitting…"
+              : stepIndex === STEPS.length - 1
+                ? "Scheduled Strategy Call"
+                : "Continue"}
           </button>
         </div>
       </div>
