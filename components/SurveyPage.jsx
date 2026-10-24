@@ -253,7 +253,7 @@ export default function SurveyPage() {
             {submitting
               ? "Submitting…"
               : stepIndex === STEPS.length - 1
-                ? "Scheduled Strategy Call"
+                ? "Schedule Strategy Call"
                 : "Continue"}
           </button>
         </div>
