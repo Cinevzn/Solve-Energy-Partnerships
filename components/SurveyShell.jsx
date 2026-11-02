@@ -1,4 +1,4 @@
-const BADGE_SRC = "/branding/tep-badge-white.png";
+const LOGO_SRC = "/branding/kt-logo-icon.png";
 
 export default function SurveyShell({
   children,
@@ -10,21 +10,16 @@ export default function SurveyShell({
   return (
     <div className="page">
       <header className="site-header">
-        <a
-          className="brand"
-          href="https://taxequityprofessionals.info"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a className="brand" href="https://ktropix.com" target="_blank" rel="noreferrer">
           <img
-            src={BADGE_SRC}
-            alt="Tax Equity Professionals"
+            src={LOGO_SRC}
+            alt="Tropix Distribution"
             className="brand-logo"
             width={44}
             height={44}
             decoding="async"
           />
-          <span className="brand-name">Tax Equity Professionals</span>
+          <span className="brand-name">Tropix Distribution</span>
         </a>
         {!compact && stepNumber != null && (
           <p className="step-label">
@@ -43,16 +38,16 @@ export default function SurveyShell({
 
       <footer className="site-footer">
         <img
-          src="/branding/tep-monogram-white.png"
+          src={LOGO_SRC}
           alt=""
           className="footer-monogram"
           width={72}
-          height={72}
+          height={36}
           decoding="async"
           aria-hidden="true"
         />
-        <a href="https://taxequityprofessionals.info" target="_blank" rel="noreferrer">
-          taxequityprofessionals.info
+        <a href="https://ktropix.com" target="_blank" rel="noreferrer">
+          ktropix.com
         </a>
       </footer>
     </div>

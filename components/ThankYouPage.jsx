@@ -9,15 +9,16 @@ export default function ThankYouPage() {
     <SurveyShell progress={100} stepNumber={null} totalSteps={null} compact>
       <div className="thank-you">
         <p className="eyebrow">You&apos;re all set</p>
-        <h1>Book your strategy call</h1>
+        <h1>Book a wholesale call</h1>
         <p className="lead">
-          Pick a time below. Our team will review your survey answers before the call.
+          Pick a time below. Our team will review your store profile and come prepared with
+          product and ordering details.
         </p>
 
         <div className="calendar-wrap">
           {CALENDAR_URL ? (
             <iframe
-              title="Book a call"
+              title="Book a wholesale call"
               src={CALENDAR_URL}
               className="calendar-iframe"
               loading="lazy"
@@ -34,7 +35,7 @@ export default function ThankYouPage() {
         </div>
 
         <p className="fine-print">
-          Tax Equity Professionals · Educational information only · Not tax or investment advice
+          Tropix Distribution · GMP certified · Lab tested · Keizer, Oregon
         </p>
       </div>
     </SurveyShell>

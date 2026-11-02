@@ -1,6 +1,6 @@
-# Tax Equity Pros — Facebook survey funnel
+# Tropix Distribution — B2B wholesale survey funnel
 
-Survey-style Meta opt-in for **partners.taxequityprofessionals.info**: qualification questions → contact capture → thank-you page with Go High Level calendar embed.
+Survey-style Meta opt-in for **smokeshop and retail partners**: business qualification → contact capture → thank-you page with Go High Level calendar embed.
 
 ## Stack
 
@@ -31,18 +31,20 @@ Without `GHL_INBOUND_WEBHOOK_URL`, the API logs the JSON payload to the server c
 
 See [docs/webhook-payload.md](./docs/webhook-payload.md).
 
-Sub-$100k expected liability (`20-50k`, `50-100k`) adds tag **`sub-100k-liability`**.
+## Brand
+
+Primary colors: `#91E32F` (accent), `#242424` (background). Logo in `public/branding/`.
 
 ## Deploy
 
 Push to `main` on GitHub; Vercel runs `next build` automatically.
 
-Point **partners.taxequityprofessionals.info** at the Vercel project and set environment variables in the Vercel dashboard.
+Set environment variables in the Vercel dashboard for your B2B domain.
 
 ## Facebook ad URL (tracking)
 
 ```
-https://partners.taxequityprofessionals.info/?utm_source=facebook&utm_medium=paid&utm_campaign=YOUR_CAMPAIGN&utm_content=YOUR_AD&fbclid={{fbclid}}
+https://YOUR-B2B-DOMAIN/?utm_source=facebook&utm_medium=paid&utm_campaign=YOUR_CAMPAIGN&utm_content=YOUR_AD&fbclid={{fbclid}}
 ```
 
 UTMs and `fbclid` are stored in session storage on landing and included in every webhook payload.

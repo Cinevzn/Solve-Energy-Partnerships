@@ -2,18 +2,18 @@ import TrackingInit from "@/components/TrackingInit";
 import "./globals.css";
 
 export const metadata = {
-  title: "Maximizing Tax Benefits",
+  title: "Tropix Distribution — Partner Inquiry",
   description:
-    "See if advanced tax equity strategies may fit your situation. Quick survey for accredited and high-income taxpayers.",
-  metadataBase: new URL("https://partners.taxequityprofessionals.info"),
+    "Smokeshop and retail partners: tell us about your business and get lab-tested product and ordering info from Tropix Distribution.",
+  metadataBase: new URL("https://ktropix.com"),
   icons: {
-    icon: "/branding/tep-badge-navy.png",
-    apple: "/branding/tep-badge-navy.png",
+    icon: "/branding/kt-logo-icon.png",
+    apple: "/branding/kt-logo-icon.png",
   },
 };
 
 export const viewport = {
-  themeColor: "#0a1d43",
+  themeColor: "#242424",
 };
 
 export default function RootLayout({ children }) {
