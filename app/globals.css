@@ -338,3 +338,94 @@ body {
 .site-footer a:hover {
   color: var(--kt-lime);
 }
+
+.landing h1 {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  margin-bottom: 0.85rem;
+}
+
+.landing .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  color: var(--accent);
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+
+.value-list {
+  list-style: none;
+  margin: 0 0 1.75rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.value-item {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  padding: 1rem 1.1rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.value-item strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+}
+
+.value-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.value-check {
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(145, 227, 47, 0.15);
+  color: var(--kt-lime);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.landing-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+}
+
+a.landing-cta {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  margin-left: 0;
+}
+
+.landing-note {
+  margin: 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.landing-trust a {
+  color: var(--text-muted);
+}
+
+.landing-trust a:hover {
+  color: var(--kt-lime);
+}

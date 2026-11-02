@@ -104,7 +104,7 @@ export default function SurveyPage() {
     try {
       const result = await submitLead(form);
       trackLead(result.eventId);
-      router.replace("/thank-you");
+      router.replace("/connect/thank-you");
     } catch (e) {
       setError(e.message);
     } finally {

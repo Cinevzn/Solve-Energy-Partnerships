@@ -2,9 +2,12 @@ import TrackingInit from "@/components/TrackingInit";
 import "./globals.css";
 
 export const metadata = {
-  title: "Tropix Distribution — Partner Inquiry",
+  title: {
+    default: "Tropix Distribution",
+    template: "%s | Tropix Distribution",
+  },
   description:
-    "Smokeshop and retail partners: tell us about your business and get lab-tested product and ordering info from Tropix Distribution.",
+    "Wholesale K Tropix for smokeshops and retail partners—lab-tested, GMP-certified products from Oregon.",
   metadataBase: new URL("https://ktropix.com"),
   icons: {
     icon: [

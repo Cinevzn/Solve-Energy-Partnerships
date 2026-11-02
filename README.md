@@ -17,6 +17,12 @@ npm run dev
 
 Open http://localhost:3000
 
+| Route | Purpose |
+|-------|---------|
+| `/` | One-page wholesale landing (CTA to survey) |
+| `/connect` | Partner survey funnel |
+| `/connect/thank-you` | Calendar / confirmation after submit |
+
 Without `GHL_INBOUND_WEBHOOK_URL`, the API logs the JSON payload to the server console instead of forwarding.
 
 ## Environment (Vercel + `.env.local`)
@@ -44,7 +50,7 @@ Set environment variables in the Vercel dashboard for your B2B domain.
 ## Facebook ad URL (tracking)
 
 ```
-https://YOUR-B2B-DOMAIN/?utm_source=facebook&utm_medium=paid&utm_campaign=YOUR_CAMPAIGN&utm_content=YOUR_AD&fbclid={{fbclid}}
+https://YOUR-B2B-DOMAIN/connect?utm_source=facebook&utm_medium=paid&utm_campaign=YOUR_CAMPAIGN&utm_content=YOUR_AD&fbclid={{fbclid}}
 ```
 
 UTMs and `fbclid` are stored in session storage on landing and included in every webhook payload.

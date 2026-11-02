@@ -10,7 +10,7 @@ export default function SurveyShell({
   return (
     <div className="page">
       <header className="site-header">
-        <a className="brand" href="https://ktropix.com" target="_blank" rel="noreferrer">
+        <a className="brand" href="/">
           <img
             src={LOGO_SRC}
             alt="Tropix Distribution"

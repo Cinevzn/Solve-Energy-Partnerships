@@ -1,5 +1,5 @@
-import ThankYouPage from "@/components/ThankYouPage";
+import { redirect } from "next/navigation";
 
-export default function ThankYou() {
-  return <ThankYouPage />;
+export default function ThankYouLegacy() {
+  redirect("/connect/thank-you");
 }
