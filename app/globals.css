@@ -324,19 +324,26 @@ body {
   gap: 0.75rem;
 }
 
+.footer-logo-link {
+  display: inline-block;
+  line-height: 0;
+  transition: opacity 0.15s;
+}
+
+.footer-logo-link:hover {
+  opacity: 1;
+}
+
 .footer-monogram {
   width: 56px;
   height: auto;
   opacity: 0.45;
   object-fit: contain;
+  transition: opacity 0.15s;
 }
 
-.site-footer a {
-  color: var(--text-muted);
-}
-
-.site-footer a:hover {
-  color: var(--kt-lime);
+.footer-logo-link:hover .footer-monogram {
+  opacity: 0.75;
 }
 
 .landing h1 {

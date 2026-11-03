@@ -37,17 +37,22 @@ export default function SurveyShell({
       <main className="main">{children}</main>
 
       <footer className="site-footer">
-        <img
-          src={LOGO_SRC}
-          alt=""
-          className="footer-monogram"
-          width={72}
-          height={36}
-          decoding="async"
-          aria-hidden="true"
-        />
-        <a href="https://ktropix.com" target="_blank" rel="noreferrer">
-          ktropix.com
+        <a
+          className="footer-logo-link"
+          href="https://ktropix.com"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Visit ktropix.com"
+        >
+          <img
+            src={LOGO_SRC}
+            alt=""
+            className="footer-monogram"
+            width={72}
+            height={36}
+            decoding="async"
+            aria-hidden="true"
+          />
         </a>
       </footer>
     </div>
