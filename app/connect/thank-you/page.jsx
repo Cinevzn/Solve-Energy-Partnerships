@@ -1,8 +1,8 @@
 import ThankYouPage from "@/components/ThankYouPage";
 
 export const metadata = {
-  title: "Thank you",
-  description: "Schedule a call with the Solve Energy team.",
+  title: "Video and booking",
+  description: "Watch the Solve Energy overview and schedule a call with our team.",
 };
 
 export default function ConnectThankYou() {

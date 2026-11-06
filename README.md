@@ -1,10 +1,10 @@
 # Solve Energy investor survey funnel
 
-Survey-style Meta opt-in for **investors and expansion partners**: qualification → contact → **stage 2 profile** → thank-you with Go High Level calendar embed.
+Survey-style Meta opt-in for **market expansion partners**: one qualification survey (step 1), then a **VSL + booking** page (step 2).
 
 ## Stack
 
-- **Next.js 15** (App Router): React survey UI + `/api/leads` and `/api/leads/profile` for GHL webhooks
+- **Next.js 15** (App Router): React survey UI + `POST /api/leads` for GHL webhook
 - Deploy on **Vercel** (connected to GitHub)
 
 ## Quick start
@@ -20,36 +20,32 @@ Open http://localhost:3000
 | Route | Purpose |
 |-------|---------|
 | `/` | Investor landing (CTA to survey) |
-| `/connect` | Step 1: qualification survey + contact (webhook 1) |
-| `/connect/video` | Partner overview video, then continue to step 2 |
-| `/connect/profile` | Step 2: location, relocation, investor background (webhook 2) |
-| `/connect/thank-you` | Step 3: calendar booking |
+| `/connect` | Step 1 (v1): market list + survey + single webhook on submit |
+| `/connect/v2` | Step 1 (v2): **map** market picker + same survey + webhook (tag `survey-v2-map`) |
+| `/connect/thank-you` | Step 2: video embed + calendar booking |
 
-Without webhook env vars, each API logs its JSON payload to the server console instead of forwarding.
+Without `GHL_INBOUND_WEBHOOK_URL`, the API logs the JSON payload to the server console instead of forwarding.
 
 ## Environment (Vercel + `.env.local`)
 
 | Variable | Scope | Purpose |
 |----------|--------|---------|
-| `GHL_INBOUND_WEBHOOK_URL` | Server | Stage 1 GHL inbound webhook |
-| `GHL_INBOUND_WEBHOOK_URL_STEP2` | Server | Stage 2 GHL inbound webhook |
+| `GHL_INBOUND_WEBHOOK_URL` | Server | GHL inbound webhook |
 | `NEXT_PUBLIC_FB_PIXEL_ID` | Public | Meta Pixel (when ready) |
-| `NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL` | Public | Thank-you calendar iframe `src` |
-| `NEXT_PUBLIC_BOOKING_VIDEO_URL` | Public | Partner overview video on `/connect/video` (between step 1 and 2) |
+| `NEXT_PUBLIC_BOOKING_VIDEO_URL` | Public | Step 2 video iframe `src` (YouTube/Vimeo embed) |
+| `NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL` | Public | Step 2 calendar iframe `src` |
 
-## Webhook payloads
+## Webhook payload
 
 See [docs/webhook-payload.md](./docs/webhook-payload.md).
 
 ## Brand
 
-Solve Energy palette: `#1E2418`, `#E8EBE0`, `#00B934`, `#BADBE6`. Logo: `public/branding/solve-logo.svg`.
+Solve Energy palette and logo: `public/branding/`.
 
 ## Deploy
 
 Push to `main` on GitHub; Vercel runs `next build` automatically.
-
-Set environment variables in the Vercel dashboard for your campaign domain.
 
 ## Facebook ad URL (tracking)
 

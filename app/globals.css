@@ -159,6 +159,66 @@ body {
   color: var(--text);
 }
 
+.choice-btn.choice-btn-full {
+  margin-top: 0.75rem;
+}
+
+.market-map-wrap {
+  margin: 0 0 1.25rem;
+}
+
+.market-map-container {
+  border: 1px solid var(--border);
+  overflow: hidden;
+  z-index: 0;
+}
+
+.market-map-container .leaflet-control-attribution {
+  font-size: 0.65rem;
+  max-width: 60%;
+  line-height: 1.2;
+}
+
+.market-map-pin .market-map-pin-dot {
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: 5px;
+  border-radius: 999px;
+  background: var(--se-green);
+  border: 2px solid var(--se-core);
+  box-shadow: 0 1px 4px rgba(30, 36, 24, 0.35);
+}
+
+.market-map-pin-selected .market-map-pin-dot {
+  width: 16px;
+  height: 16px;
+  margin: 4px;
+  background: var(--se-sky);
+}
+
+.market-map-selection {
+  margin: 0.75rem 0 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.market-map-selection strong {
+  color: var(--text);
+}
+
+.market-map-skeleton {
+  height: min(52vh, 420px);
+  border-radius: var(--radius);
+  border: 1px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
 .choice-list {
   list-style: none;
   margin: 0 0 1.5rem;
@@ -166,6 +226,13 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
+}
+
+.choice-list-long {
+  max-height: min(52vh, 28rem);
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  margin-bottom: 1rem;
 }
 
 .choice-btn {
@@ -200,6 +267,14 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.contact-form.contact-card {
+  padding: 1.25rem 1.15rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   margin-bottom: 1.25rem;
 }
 

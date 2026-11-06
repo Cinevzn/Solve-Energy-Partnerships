@@ -1,9 +1,9 @@
 import SurveyPage from "@/components/SurveyPage";
 
 export const metadata = {
-  title: "Investor questionnaire",
+  title: "Partner questionnaire",
   description:
-    "Quick survey for investors and partners: background, timeline, and contact details for Solve Energy expansion.",
+    "Answer a few questions about your market, capital, and timing. Next, watch an overview and book a call with Solve Energy.",
 };
 
 export default function Connect() {

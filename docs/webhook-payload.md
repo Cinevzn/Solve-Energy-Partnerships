@@ -1,21 +1,16 @@
-# GHL inbound webhook JSON payloads
+# GHL inbound webhook JSON payload
 
 `POST` your inbound webhook URL with `Content-Type: application/json`.
 
-| Stage | API route | Env variable |
-|-------|-----------|--------------|
-| 1: Qualification + contact | `POST /api/leads` | `GHL_INBOUND_WEBHOOK_URL` |
-| 2: Investor profile | `POST /api/leads/profile` | `GHL_INBOUND_WEBHOOK_URL_STEP2` |
+The funnel API (`POST /api/leads`) builds and forwards this body after the survey (step 1) completes.
 
-Use **email + phone** (or `parent_event_id` on stage 2) in GHL to update the same contact.
-
-## Stage 1 example
+## Example
 
 ```json
 {
   "source": "Facebook Survey Funnel",
   "funnel": "invest.solveenergy.ca",
-  "stage": "qualification",
+  "stage": "survey",
   "event_id": "550e8400-e29b-41d4-a716-446655440000",
   "contact": {
     "firstName": "Jane",
@@ -24,10 +19,13 @@ Use **email + phone** (or `parent_event_id` on stage 2) in GHL to update the sam
     "phone": "+16045551234"
   },
   "survey": {
-    "sales_background": "yes_professional",
-    "investment_participation": "active",
-    "investment_timeline": "0_3_months",
-    "investment_budget": "250k_500k"
+    "survey_version": "v1",
+    "market_interest": "calgary_ab",
+    "participation_model": "hands_on_run_market",
+    "based_near": "live_in_market",
+    "capital_available": "250k_500k",
+    "own_capital": "mine_liquid_now",
+    "invest_timeline": "ready_now"
   },
   "tracking": {
     "utm_source": "facebook",
@@ -41,87 +39,44 @@ Use **email + phone** (or `parent_event_id` on stage 2) in GHL to update the sam
     "facebook-funnel",
     "investor-funnel",
     "solve-energy",
-    "stage-qualification",
-    "timeline-hot-0-3mo",
-    "investor-active-participant"
+    "market-expansion",
+    "timeline-ready-now",
+    "hands-on-market"
   ],
   "meta": {
     "event_id": "550e8400-e29b-41d4-a716-446655440000",
-    "submitted_at": "2026-11-05T12:00:00.000Z"
+    "submitted_at": "2026-11-06T12:00:00.000Z"
   }
 }
 ```
 
-### Stage 1 survey field values
+## Survey field values
 
-- **sales_background:** `yes_professional` | `yes_some` | `no`
-- **investment_participation:** `active` | `passive` | `either`
-- **investment_timeline:** `0_3_months` | `3_6_months` | `6_12_months` | `12_plus`
-- **investment_budget:** `100k_200k` | `250k_500k` | `500k_1m` | `1m_plus`
+- **survey_version:** `v1` (default list at `/connect`) | `v2` (map picker at `/connect/v2`)
+- **market_interest:** `calgary_ab` | `edmonton_ab` | `red_deer_ab` | `lethbridge_ab` | `grande_prairie_ab` | `saskatoon_sk` | `regina_sk` | `winnipeg_mb` | `toronto_on` | `ottawa_on` | `kingston_on` | `windsor_on` | `sudbury_on` | `montreal_qc` | `quebec_city_qc` | `new_brunswick` | `halifax_ns` | `st_johns_nl` | `other_city`
+- **participation_model:** `hands_on_run_market` | `invest_solve_team` | `unsure_both`
+- **based_near:** `live_in_market` | `within_hour` | `would_relocate` | `remote`
+- **capital_available:** `under_250k` | `250k_500k` | `500k_750k` | `750k_1m` | `1m_plus`
+- **own_capital:** `mine_liquid_now` | `mine_sell_or_borrow` | `raise_from_others` | `not_sure_yet`
+- **invest_timeline:** `ready_now` | `within_three_months` | `three_to_six_months` | `still_exploring`
 
-### Stage 1 tags
+## Tags
 
 | Tag | When applied |
 |-----|----------------|
 | `facebook-funnel` | Every submission |
 | `investor-funnel` | Every submission |
 | `solve-energy` | Every submission |
-| `stage-qualification` | Every submission |
-| `timeline-hot-0-3mo` | Timeline is `0_3_months` |
-| `investor-active-participant` | Participation is `active` |
-| `budget-500k-plus` | Budget is `500k_1m` or `1m_plus` |
-
-## Stage 2 example
-
-```json
-{
-  "source": "Facebook Survey Funnel",
-  "funnel": "invest.solveenergy.ca",
-  "stage": "investor_profile",
-  "event_id": "660e8400-e29b-41d4-a716-446655440001",
-  "parent_event_id": "550e8400-e29b-41d4-a716-446655440000",
-  "contact": {
-    "firstName": "Jane",
-    "lastName": "Doe",
-    "email": "jane@example.com",
-    "phone": "+16045551234"
-  },
-  "survey": {
-    "location": "Calgary, AB",
-    "willing_to_relocate": "open_to_discuss",
-    "investor_background": "Former regional sales director with experience in home services…"
-  },
-  "tracking": { "utm_source": "facebook", "utm_medium": "paid", "utm_campaign": "", "utm_content": "", "utm_term": "", "fbclid": "" },
-  "tags": [
-    "facebook-funnel",
-    "investor-funnel",
-    "solve-energy",
-    "stage-investor-profile",
-    "profile-complete"
-  ],
-  "meta": {
-    "event_id": "660e8400-e29b-41d4-a716-446655440001",
-    "parent_event_id": "550e8400-e29b-41d4-a716-446655440000",
-    "submitted_at": "2026-11-05T12:05:00.000Z"
-  }
-}
-```
-
-### Stage 2 survey field values
-
-- **location:** free text
-- **willing_to_relocate:** `yes` | `no` | `open_to_discuss` | `remote_only`
-- **investor_background:** free text (min 150 characters)
-
-| Tag | When applied |
-|-----|----------------|
-| `profile-complete` | Every stage 2 submission |
-| `willing-relocate-yes` | Relocation is `yes` |
+| `market-expansion` | Every submission |
+| `timeline-ready-now` | `invest_timeline` is `ready_now` |
+| `hands-on-market` | `participation_model` is `hands_on_run_market` |
+| `capital-750k-plus` | `capital_available` is `750k_1m` or `1m_plus` |
+| `survey-v2-map` | `survey_version` is `v2` (submitted from `/connect/v2`) |
 
 ## Meta Pixel deduplication
 
-Use the stage 1 `event_id` / `meta.event_id` in Go High Level CAPI (Lead event) as the browser Pixel `Lead` event (`eventID` option). Stage 2 does not fire Lead by default.
+Use the same `event_id` / `meta.event_id` in Go High Level CAPI (Lead event) as the browser Pixel `Lead` event (`eventID` option).
 
 ## Configuration
 
-Set webhook URLs in `.env.local`. Map JSON paths in your GHL inbound webhook workflows to contact fields and tags.
+Set `GHL_INBOUND_WEBHOOK_URL` in `.env.local`. Map JSON paths in your GHL inbound webhook workflow to contact fields and tags.
