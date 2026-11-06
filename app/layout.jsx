@@ -11,6 +11,7 @@ export const metadata = {
   metadataBase: new URL("https://solveenergy.ca"),
   icons: {
     icon: [
+      { url: "/branding/solve-icon.svg", type: "image/svg+xml" },
       { url: "/branding/favicon-32.png", sizes: "32x32", type: "image/png" },
       { url: "/branding/favicon-192.png", sizes: "192x192", type: "image/png" },
     ],
