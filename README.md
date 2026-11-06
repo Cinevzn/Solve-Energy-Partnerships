@@ -20,8 +20,9 @@ Open http://localhost:3000
 | Route | Purpose |
 |-------|---------|
 | `/` | Investor landing (CTA to survey) |
-| `/connect` | Step 1 (v1): market list + survey + single webhook on submit |
-| `/connect/v2` | Step 1 (v2): **map** market picker + same survey + webhook (tag `survey-v2-map`) |
+| `/connect` | Step 1 (default, v2): **map** market picker + survey + webhook (tag `survey-v2-map`) |
+| `/connect/v1` | Step 1 (v1): market list + same survey + webhook |
+| `/connect/v2` | Redirects to `/connect` (legacy URL) |
 | `/connect/thank-you` | Step 2: video embed + calendar booking |
 
 Without `GHL_INBOUND_WEBHOOK_URL`, the API logs the JSON payload to the server console instead of forwarding.

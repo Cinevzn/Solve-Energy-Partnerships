@@ -50,7 +50,8 @@ export default function SurveyFlow({ steps, surveyVersion }) {
         form.firstName.trim() &&
         form.lastName.trim() &&
         form.email.trim() &&
-        isCompleteUsPhone(form.phone)
+        isCompleteUsPhone(form.phone) &&
+        form.aboutYou.trim()
       );
     }
     if (step.type === "market_map") {
@@ -213,7 +214,8 @@ export default function SurveyFlow({ steps, surveyVersion }) {
                 Tell us about you
               </h2>
               <p className="contact-form-section-lead" id="about-you-desc">
-                Optional — background, goals, or anything we should know before we connect.
+                Please share as much detail as you can about your background, your goals, and anything we
+                should know before we connect.
               </p>
               <label>
                 Your message
@@ -221,8 +223,9 @@ export default function SurveyFlow({ steps, surveyVersion }) {
                   name="aboutYou"
                   rows={4}
                   maxLength={2000}
+                  required
                   autoComplete="off"
-                  placeholder="e.g. professional background, why this market, or timing that matters to you"
+                  placeholder="For example: your professional background, why this market interests you, and timing that matters to you"
                   value={form.aboutYou}
                   onChange={(e) => setField("aboutYou", e.target.value)}
                   aria-labelledby="about-you-heading"

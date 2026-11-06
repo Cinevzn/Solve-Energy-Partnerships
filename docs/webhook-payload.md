@@ -53,14 +53,14 @@ The funnel API (`POST /api/leads`) builds and forwards this body after the surve
 
 ## Survey field values
 
-- **survey_version:** `v1` (default list at `/connect`) | `v2` (map picker at `/connect/v2`)
+- **survey_version:** `v1` (market list at `/connect/v1`) | `v2` (map picker at `/connect`, default)
 - **market_interest:** `calgary_ab` | `edmonton_ab` | `red_deer_ab` | `lethbridge_ab` | `grande_prairie_ab` | `saskatoon_sk` | `regina_sk` | `winnipeg_mb` | `toronto_on` | `ottawa_on` | `kingston_on` | `windsor_on` | `sudbury_on` | `montreal_qc` | `quebec_city_qc` | `new_brunswick` | `halifax_ns` | `st_johns_nl` | `other_city`
 - **participation_model:** `hands_on_run_market` | `invest_solve_team` | `unsure_both`
 - **based_near:** `live_in_market` | `within_hour` | `would_relocate` | `remote`
 - **capital_available:** `under_250k` | `250k_500k` | `500k_750k` | `750k_1m` | `1m_plus`
 - **own_capital:** `mine_liquid_now` | `mine_sell_or_borrow` | `raise_from_others` | `not_sure_yet`
 - **invest_timeline:** `ready_now` | `within_three_months` | `three_to_six_months` | `still_exploring`
-- **about_you:** Free-text string from the contact step (optional; empty string if not filled). Max 2000 characters.
+- **about_you:** Free-text string from the contact step (required). Max 2000 characters.
 
 ## Tags
 
@@ -73,7 +73,7 @@ The funnel API (`POST /api/leads`) builds and forwards this body after the surve
 | `timeline-ready-now` | `invest_timeline` is `ready_now` |
 | `hands-on-market` | `participation_model` is `hands_on_run_market` |
 | `capital-750k-plus` | `capital_available` is `750k_1m` or `1m_plus` |
-| `survey-v2-map` | `survey_version` is `v2` (submitted from `/connect/v2`) |
+| `survey-v2-map` | `survey_version` is `v2` (submitted from `/connect` or legacy `/connect/v2`) |
 
 ## Meta Pixel deduplication
 
