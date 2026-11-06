@@ -128,6 +128,24 @@ export default function QuestionnaireForm() {
     setError("");
   }
 
+  /** Q1 selects branch: Q9–12 hands/unsure only; Q9–10 invest only. Clear the other branch when switching. */
+  function setQ1Branch(value) {
+    setForm((prev) => {
+      const next = { ...prev, q1ThinkingChanged: value };
+      if (value === "invest_solve_team") {
+        next.q9PeopleResponsible = "";
+        next.q10DayToDayOwn = "";
+        next.q11SolveSetsStandardsLong = "";
+        next.q12HoursPerWeekShort = "";
+      } else {
+        next.q9InvolvementLevel = "";
+        next.q10BeforeCallLong = "";
+      }
+      return next;
+    });
+    setError("");
+  }
+
   function validateClient() {
     if (!form.firstName.trim()) return "Please enter your first name.";
     if (!form.lastName.trim()) return "Please enter your last name.";
@@ -137,14 +155,13 @@ export default function QuestionnaireForm() {
     if (leadId && !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(leadId)) {
       return "Original submission ID must be a valid UUID or left blank.";
     }
-    if (form.q1ThinkingChanged) {
-      if (handsBranch) {
-        if (!form.q9PeopleResponsible) return "Please answer question 9.";
-        if (!form.q10DayToDayOwn) return "Please answer question 10.";
-      }
-      if (investBranch) {
-        if (!form.q9InvolvementLevel) return "Please answer question 9.";
-      }
+    if (!form.q1ThinkingChanged) return "Please answer question 1.";
+    if (handsBranch) {
+      if (!form.q9PeopleResponsible) return "Please answer question 9.";
+      if (!form.q10DayToDayOwn) return "Please answer question 10.";
+    }
+    if (investBranch) {
+      if (!form.q9InvolvementLevel) return "Please answer question 9.";
     }
     if (!form.q13SolarRoofEnergy) return "Please answer question 13.";
     if (form.q13SolarRoofEnergy === "yes" && !form.q13SolarRoofEnergyDetail.trim()) {
@@ -221,7 +238,9 @@ export default function QuestionnaireForm() {
         <p className="eyebrow stage-label">Step 3 of 3 · Partner questionnaire</p>
         <h1>A few more questions</h1>
         <p className="lead">
-          Questions 1 to 12 and 17 are optional. Questions 13 to 16 are required.
+          Question 1 is required: it decides what you see next (questions 9 to 12 for hands-on or &quot;still
+          not sure&quot;; questions 9 to 10 for invest-only). Questions 2 to 8 and 17 are optional. Questions
+          13 to 16 are required.
           {showContactFields
             ? " Enter your contact details below (or open the link from your email with your info included)."
             : " We already have your contact details from your application or your link."}
@@ -313,7 +332,7 @@ export default function QuestionnaireForm() {
                 <button
                   type="button"
                   className={`choice-btn ${form.q1ThinkingChanged === opt.value ? "selected" : ""}`}
-                  onClick={() => setField("q1ThinkingChanged", opt.value)}
+                  onClick={() => setQ1Branch(opt.value)}
                 >
                   {opt.label}
                 </button>

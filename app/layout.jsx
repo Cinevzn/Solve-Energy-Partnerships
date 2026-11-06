@@ -10,11 +10,7 @@ export const metadata = {
     "Learn about Solve Energy's expansion and share your investor background. Renewable solar across Western Canada.",
   metadataBase: new URL("https://solveenergy.ca"),
   icons: {
-    icon: [
-      { url: "/branding/solve-icon.svg", type: "image/svg+xml" },
-      { url: "/branding/favicon-32.png", sizes: "32x32", type: "image/png" },
-      { url: "/branding/favicon-192.png", sizes: "192x192", type: "image/png" },
-    ],
+    icon: [{ url: "/branding/solve-icon.svg", type: "image/svg+xml" }],
     apple: [
       {
         url: "/branding/apple-touch-icon.png",
@@ -22,7 +18,7 @@ export const metadata = {
         type: "image/png",
       },
     ],
-    shortcut: "/branding/favicon-32.png",
+    shortcut: "/branding/solve-icon.svg",
   },
 };
 

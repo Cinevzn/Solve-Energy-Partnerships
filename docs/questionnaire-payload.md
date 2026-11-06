@@ -34,16 +34,16 @@ Optional: `leadEventId=<uuid>` (or `event_id`) to tie back to step 1’s `meta.e
 
 ## `questionnaire` object
 
-Branching is by `q1_thinking_changed` (same enum as step 1 `participation_model`):
+Branching is by **`q1_thinking_changed`** (required; same enum as step 1 `participation_model`):
 
-- **`hands_on_run_market`** or **`unsure_both`**: includes `q9_people_responsible`, `q10_day_to_day_own`, optional `q11` through `q12` keys.
-- **`invest_solve_team`**: includes `q9_involvement_level`, optional `q10_before_call`.
+- **`hands_on_run_market`** or **`unsure_both`**: required `q9_people_responsible`, `q10_day_to_day_own`; optional `q11` through `q12` keys.
+- **`invest_solve_team`**: required `q9_involvement_level`; optional `q10_before_call`.
 
-**Required (always):** `q13_*`, `q14_*`, `q15_*`, `q16_references`.
+**Required (always):** `q1_thinking_changed`, `q13_*`, `q14_*`, `q15_*`, `q16_references`.
 
 | Key | Question | Type |
 |-----|-----------|------|
-| `q1_thinking_changed` | Q1 branch | enum |
+| `q1_thinking_changed` | Q1 branch (required) | enum |
 | `q2_current_role` | Q2 | string or omitted |
 | `q3_business_history` | Q3 | string or omitted |
 | `q4_hope` | Q4 | string or omitted |

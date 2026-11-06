@@ -33,7 +33,8 @@ export default function MarketMapPicker({ value, onChange }) {
           </>
         ) : (
           <span className="market-map-selection-placeholder">
-            Tap a <strong>green pin</strong> on the map to choose your market
+            Tap a <strong>green pin</strong> for an open market. Faded <strong>Solve</strong> marks are
+            already taken.
           </span>
         )}
       </div>
