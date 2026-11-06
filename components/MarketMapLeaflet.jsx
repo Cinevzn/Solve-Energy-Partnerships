@@ -22,10 +22,11 @@ export default function MarketMapLeaflet({ value, onChange }) {
     () =>
       L.divIcon({
         className: "market-map-pin market-map-pin-selected",
-        html: '<span class="market-map-pin-dot"></span>',
-        iconSize: [28, 28],
-        iconAnchor: [14, 28],
-        tooltipAnchor: [0, -26],
+        html:
+          '<span class="market-map-pin-ring"></span><span class="market-map-pin-dot market-map-pin-dot-selected"></span>',
+        iconSize: [44, 44],
+        iconAnchor: [22, 44],
+        tooltipAnchor: [0, -40],
       }),
     [],
   );
@@ -35,9 +36,9 @@ export default function MarketMapLeaflet({ value, onChange }) {
       L.divIcon({
         className: "market-map-pin",
         html: '<span class="market-map-pin-dot"></span>',
-        iconSize: [24, 24],
-        iconAnchor: [12, 24],
-        tooltipAnchor: [0, -22],
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        tooltipAnchor: [0, -28],
       }),
     [],
   );
@@ -48,7 +49,7 @@ export default function MarketMapLeaflet({ value, onChange }) {
       center={[56, -96]}
       zoom={4}
       scrollWheelZoom
-      style={{ height: "min(52vh, 420px)", width: "100%", borderRadius: "var(--radius)" }}
+      style={{ height: "min(56vh, 480px)", width: "100%", borderRadius: "var(--radius)" }}
     >
       <FitBounds />
       <TileLayer

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import SurveyShell from "@/components/SurveyShell";
 import MarketMapPicker from "@/components/MarketMapPicker";
@@ -9,18 +9,35 @@ import { formatPhoneDisplay, isCompleteUsPhone } from "@/lib/phone";
 import { submitLead } from "@/lib/submitLead";
 import { getInitialForm } from "@/components/surveySteps";
 
+const AUTO_ADVANCE_MS = 300;
+
 export default function SurveyFlow({ steps, surveyVersion }) {
   const router = useRouter();
   const [stepIndex, setStepIndex] = useState(0);
   const [form, setForm] = useState(() => ({ ...getInitialForm(), surveyVersion }));
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const advanceTimerRef = useRef(null);
+  const stepIndexRef = useRef(0);
+
+  useEffect(() => {
+    stepIndexRef.current = stepIndex;
+  }, [stepIndex]);
 
   const step = steps[stepIndex];
   const progress = useMemo(
     () => Math.round(((stepIndex + 1) / steps.length) * 100),
     [stepIndex, steps.length],
   );
+
+  function clearAdvanceTimer() {
+    if (advanceTimerRef.current) {
+      clearTimeout(advanceTimerRef.current);
+      advanceTimerRef.current = null;
+    }
+  }
+
+  useEffect(() => () => clearAdvanceTimer(), []);
 
   function setField(id, value) {
     setForm((prev) => ({ ...prev, [id]: value }));
@@ -42,6 +59,29 @@ export default function SurveyFlow({ steps, surveyVersion }) {
     return Boolean(form[step.id]);
   }
 
+  const goToNextStep = useCallback(() => {
+    setStepIndex((i) => {
+      if (i < steps.length - 1) return i + 1;
+      return i;
+    });
+  }, [steps.length]);
+
+  /** Choice + map steps: set value and auto-advance after short delay */
+  function selectAndAdvance(value) {
+    clearAdvanceTimer();
+    const id = step.id;
+    const currentIndex = stepIndexRef.current;
+
+    setForm((prev) => ({ ...prev, [id]: value }));
+    setError("");
+
+    advanceTimerRef.current = setTimeout(() => {
+      advanceTimerRef.current = null;
+      if (stepIndexRef.current !== currentIndex) return;
+      goToNextStep();
+    }, AUTO_ADVANCE_MS);
+  }
+
   async function handleNext() {
     if (!canContinue()) {
       setError("Please complete this step to continue.");
@@ -49,6 +89,7 @@ export default function SurveyFlow({ steps, surveyVersion }) {
     }
 
     if (stepIndex < steps.length - 1) {
+      clearAdvanceTimer();
       setStepIndex((i) => i + 1);
       return;
     }
@@ -68,12 +109,9 @@ export default function SurveyFlow({ steps, surveyVersion }) {
 
   function handleBack() {
     if (stepIndex === 0) return;
+    clearAdvanceTimer();
     setStepIndex((i) => i - 1);
     setError("");
-  }
-
-  function handleChoice(value) {
-    setField(step.id, value);
   }
 
   function handlePhoneChange(raw) {
@@ -81,6 +119,8 @@ export default function SurveyFlow({ steps, surveyVersion }) {
   }
 
   const versionLabel = surveyVersion === "v2" ? " (map)" : "";
+
+  const showManualContinue = step.type === "contact" || step.type === "market_map";
 
   return (
     <SurveyShell progress={progress} stepNumber={stepIndex + 1} totalSteps={steps.length}>
@@ -105,7 +145,7 @@ export default function SurveyFlow({ steps, surveyVersion }) {
                 <button
                   type="button"
                   className={`choice-btn ${opt.variant === "muted" ? "choice-muted" : ""} ${form[step.id] === opt.value ? "selected" : ""}`}
-                  onClick={() => handleChoice(opt.value)}
+                  onClick={() => selectAndAdvance(opt.value)}
                 >
                   {opt.label}
                 </button>
@@ -194,18 +234,22 @@ export default function SurveyFlow({ steps, surveyVersion }) {
           ) : (
             <span />
           )}
-          <button
-            type="button"
-            className="btn primary"
-            onClick={handleNext}
-            disabled={submitting || !canContinue()}
-          >
-            {submitting
-              ? "Submitting…"
-              : stepIndex === steps.length - 1
-                ? "Submit and continue"
-                : "Continue"}
-          </button>
+          {showManualContinue ? (
+            <button
+              type="button"
+              className="btn primary"
+              onClick={handleNext}
+              disabled={submitting || !canContinue()}
+            >
+              {submitting
+                ? "Submitting…"
+                : stepIndex === steps.length - 1
+                  ? "Submit and continue"
+                  : "Continue"}
+            </button>
+          ) : (
+            <p className="auto-advance-hint">Next step opens when you choose an option</p>
+          )}
         </div>
       </div>
     </SurveyShell>

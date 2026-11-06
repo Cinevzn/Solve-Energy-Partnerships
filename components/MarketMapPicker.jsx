@@ -18,12 +18,26 @@ export default function MarketMapPicker({ value, onChange }) {
 
   return (
     <div className="market-map-wrap">
+      <div className={`market-map-selection-banner ${value ? "has-selection" : ""}`} role="status">
+        {value ? (
+          <>
+            <span className="market-map-selection-check" aria-hidden="true">
+              ✓
+            </span>
+            <span className="market-map-selection-text">
+              <strong>{selectedLabel}</strong>
+              <span className="market-map-selection-hint">
+                Tap another pin to change, then Continue
+              </span>
+            </span>
+          </>
+        ) : (
+          <span className="market-map-selection-placeholder">
+            Tap a <strong>green pin</strong> on the map to choose your market
+          </span>
+        )}
+      </div>
       <MarketMapLeaflet value={value} onChange={onChange} />
-      {selectedLabel && (
-        <p className="market-map-selection" role="status">
-          Selected: <strong>{selectedLabel}</strong>
-        </p>
-      )}
       <button
         type="button"
         className={`choice-btn choice-btn-full choice-muted ${value === "other_city" ? "selected" : ""}`}

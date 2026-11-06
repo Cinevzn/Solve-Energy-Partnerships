@@ -167,6 +167,61 @@ body {
   margin: 0 0 1.25rem;
 }
 
+.market-map-selection-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  margin-bottom: 0.85rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--border);
+  background: var(--bg-elevated);
+  font-size: 0.92rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.market-map-selection-banner.has-selection {
+  border-color: var(--accent);
+  background: rgba(0, 185, 52, 0.1);
+  box-shadow: 0 0 0 1px rgba(0, 185, 52, 0.25);
+}
+
+.market-map-selection-check {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 999px;
+  background: var(--se-green);
+  color: var(--se-concrete);
+  font-weight: 800;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.market-map-selection-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.market-map-selection-text strong {
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.market-map-selection-hint {
+  font-size: 0.78rem;
+  opacity: 0.85;
+}
+
+.market-map-selection-placeholder strong {
+  color: var(--text);
+}
+
 .market-map-container {
   border: 1px solid var(--border);
   overflow: hidden;
@@ -179,36 +234,71 @@ body {
   line-height: 1.2;
 }
 
+.market-map-pin {
+  position: relative;
+}
+
 .market-map-pin .market-map-pin-dot {
   display: block;
-  width: 14px;
-  height: 14px;
-  margin: 5px;
-  border-radius: 999px;
-  background: var(--se-green);
-  border: 2px solid var(--se-core);
-  box-shadow: 0 1px 4px rgba(30, 36, 24, 0.35);
-}
-
-.market-map-pin-selected .market-map-pin-dot {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 0);
   width: 16px;
   height: 16px;
-  margin: 4px;
-  background: var(--se-sky);
+  border-radius: 999px;
+  background: var(--se-green);
+  border: 3px solid var(--se-concrete);
+  box-shadow: 0 2px 8px rgba(30, 36, 24, 0.45);
 }
 
-.market-map-selection {
-  margin: 0.75rem 0 0;
-  font-size: 0.9rem;
+.market-map-pin-selected .market-map-pin-ring {
+  position: absolute;
+  left: 50%;
+  bottom: 6px;
+  transform: translate(-50%, 0);
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 3px solid var(--se-green);
+  background: rgba(0, 185, 52, 0.18);
+  animation: market-pin-pulse 1.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.market-map-pin-selected .market-map-pin-dot-selected {
+  width: 20px;
+  height: 20px;
+  bottom: 2px;
+  background: var(--se-core);
+  border-width: 3px;
+  border-color: var(--se-green);
+}
+
+@keyframes market-pin-pulse {
+  0%,
+  100% {
+    transform: translate(-50%, 0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, 0) scale(1.08);
+    opacity: 0.85;
+  }
+}
+
+.auto-advance-hint {
+  margin: 0;
+  margin-left: auto;
+  max-width: 12rem;
+  text-align: right;
+  font-size: 0.78rem;
   color: var(--text-muted);
-}
-
-.market-map-selection strong {
-  color: var(--text);
+  line-height: 1.35;
 }
 
 .market-map-skeleton {
-  height: min(52vh, 420px);
+  height: min(56vh, 480px);
   border-radius: var(--radius);
   border: 1px dashed var(--border);
   display: flex;
