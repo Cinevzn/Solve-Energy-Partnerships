@@ -223,9 +223,19 @@ body {
 }
 
 .market-map-container {
+  width: 100%;
+  border-radius: var(--radius);
+  /* Shorter on mobile so banner + "not listed" + Continue stay in view */
+  height: min(38dvh, 320px);
   border: 1px solid var(--border);
   overflow: hidden;
   z-index: 0;
+}
+
+@media (min-width: 640px) {
+  .market-map-container {
+    height: min(52dvh, 460px);
+  }
 }
 
 .market-map-container .leaflet-control-attribution {
@@ -298,7 +308,7 @@ body {
 }
 
 .market-map-skeleton {
-  height: min(56vh, 480px);
+  height: min(38dvh, 320px);
   border-radius: var(--radius);
   border: 1px dashed var(--border);
   display: flex;
@@ -307,6 +317,12 @@ body {
   color: var(--text-muted);
   font-size: 0.9rem;
   margin-bottom: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .market-map-skeleton {
+    height: min(52dvh, 460px);
+  }
 }
 
 .choice-list {
@@ -366,6 +382,30 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   margin-bottom: 1.25rem;
+}
+
+.contact-form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--border);
+}
+
+.contact-form-section-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.25;
+}
+
+.contact-form-section-lead {
+  margin: 0 0 0.15rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
 }
 
 .field-row {

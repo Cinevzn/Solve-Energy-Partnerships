@@ -12,6 +12,7 @@ export function getInitialForm() {
     lastName: "",
     email: "",
     phone: "",
+    aboutYou: "",
     website: "",
   };
 }

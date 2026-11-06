@@ -25,7 +25,8 @@ The funnel API (`POST /api/leads`) builds and forwards this body after the surve
     "based_near": "live_in_market",
     "capital_available": "250k_500k",
     "own_capital": "mine_liquid_now",
-    "invest_timeline": "ready_now"
+    "invest_timeline": "ready_now",
+    "about_you": "Former operator in HVAC; interested in Calgary and ready to move within 90 days."
   },
   "tracking": {
     "utm_source": "facebook",
@@ -59,6 +60,7 @@ The funnel API (`POST /api/leads`) builds and forwards this body after the surve
 - **capital_available:** `under_250k` | `250k_500k` | `500k_750k` | `750k_1m` | `1m_plus`
 - **own_capital:** `mine_liquid_now` | `mine_sell_or_borrow` | `raise_from_others` | `not_sure_yet`
 - **invest_timeline:** `ready_now` | `within_three_months` | `three_to_six_months` | `still_exploring`
+- **about_you:** Free-text string from the contact step (optional; empty string if not filled). Max 2000 characters.
 
 ## Tags
 

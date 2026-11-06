@@ -208,6 +208,28 @@ export default function SurveyFlow({ steps, surveyVersion }) {
                 }}
               />
             </label>
+            <div className="contact-form-section">
+              <h2 className="contact-form-section-title" id="about-you-heading">
+                Tell us about you
+              </h2>
+              <p className="contact-form-section-lead" id="about-you-desc">
+                Optional — background, goals, or anything we should know before we connect.
+              </p>
+              <label>
+                Your message
+                <textarea
+                  name="aboutYou"
+                  rows={4}
+                  maxLength={2000}
+                  autoComplete="off"
+                  placeholder="e.g. professional background, why this market, or timing that matters to you"
+                  value={form.aboutYou}
+                  onChange={(e) => setField("aboutYou", e.target.value)}
+                  aria-labelledby="about-you-heading"
+                  aria-describedby="about-you-desc"
+                />
+              </label>
+            </div>
             <label className="hp" aria-hidden="true">
               Website
               <input

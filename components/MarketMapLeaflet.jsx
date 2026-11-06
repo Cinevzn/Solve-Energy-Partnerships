@@ -49,7 +49,7 @@ export default function MarketMapLeaflet({ value, onChange }) {
       center={[56, -96]}
       zoom={4}
       scrollWheelZoom
-      style={{ height: "min(56vh, 480px)", width: "100%", borderRadius: "var(--radius)" }}
+      style={{ width: "100%" }}
     >
       <FitBounds />
       <TileLayer
