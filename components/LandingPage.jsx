@@ -46,7 +46,7 @@ export default function LandingPage() {
           <Link href="/connect" className="btn primary landing-cta">
             Start investor inquiry
           </Link>
-          <p className="landing-note">Takes about 3 minutes · No obligation</p>
+          <p className="landing-note">Takes about 3 minutes</p>
         </div>
 
         <p className="fine-print landing-trust">
