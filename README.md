@@ -1,6 +1,6 @@
 # Solve Energy investor survey funnel
 
-Survey-style Meta opt-in for **market expansion partners**: one qualification survey (step 1), then a **VSL + booking** page (step 2).
+Survey-style Meta opt-in for **market expansion partners**: qualification survey (step 1), **VSL + booking** (step 2), then the **partner questionnaire** (step 3).
 
 ## Stack
 
@@ -23,22 +23,24 @@ Open http://localhost:3000
 | `/connect` | Step 1 (default, v2): **map** market picker + survey + webhook (tag `survey-v2-map`) |
 | `/connect/v1` | Step 1 (v1): market list + same survey + webhook |
 | `/connect/v2` | Redirects to `/connect` (legacy URL) |
-| `/connect/thank-you` | Step 2: video embed + calendar booking |
+| `/connect/thank-you` | Step 2: video embed + calendar booking + link to step 3 |
+| `/questionare` | Step 3: partner questionnaire → `POST /api/questionnaire`. Contact fields show only if not already known (funnel session after step 1, or full query prefill for CRM) |
 
-Without `GHL_INBOUND_WEBHOOK_URL`, the API logs the JSON payload to the server console instead of forwarding.
+Without `GHL_INBOUND_WEBHOOK_URL`, the leads API logs the JSON payload to the server console instead of forwarding. The questionnaire API uses `GHL_QUESTIONNAIRE_WEBHOOK_URL` when set, otherwise falls back to the same URL.
 
 ## Environment (Vercel + `.env.local`)
 
 | Variable | Scope | Purpose |
 |----------|--------|---------|
-| `GHL_INBOUND_WEBHOOK_URL` | Server | GHL inbound webhook |
+| `GHL_INBOUND_WEBHOOK_URL` | Server | GHL inbound webhook (step 1 lead) |
+| `GHL_QUESTIONNAIRE_WEBHOOK_URL` | Server | Optional separate GHL URL for step 3 |
 | `NEXT_PUBLIC_FB_PIXEL_ID` | Public | Meta Pixel (when ready) |
 | `NEXT_PUBLIC_BOOKING_VIDEO_URL` | Public | Step 2 video iframe `src` (YouTube/Vimeo embed) |
 | `NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL` | Public | Step 2 calendar iframe `src` |
 
 ## Webhook payload
 
-See [docs/webhook-payload.md](./docs/webhook-payload.md).
+See [docs/webhook-payload.md](./docs/webhook-payload.md) (step 1) and [docs/questionnaire-payload.md](./docs/questionnaire-payload.md) (step 3).
 
 ## Brand
 

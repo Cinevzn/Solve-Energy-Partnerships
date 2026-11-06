@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import SurveyShell from "@/components/SurveyShell";
 import MarketMapPicker from "@/components/MarketMapPicker";
 import { trackLead } from "@/lib/metaPixel";
-import { formatPhoneDisplay, isCompleteUsPhone } from "@/lib/phone";
+import { writeLeadSession } from "@/lib/leadSession";
+import { formatPhoneDisplay, isCompleteUsPhone, phoneDigitsOnly } from "@/lib/phone";
 import { submitLead } from "@/lib/submitLead";
 import { getInitialForm } from "@/components/surveySteps";
 
@@ -100,6 +101,13 @@ export default function SurveyFlow({ steps, surveyVersion }) {
     try {
       const result = await submitLead(form);
       trackLead(result.eventId);
+      writeLeadSession({
+        eventId: result.eventId,
+        firstName: form.firstName.trim(),
+        lastName: form.lastName.trim(),
+        email: form.email.trim(),
+        phoneDigits: phoneDigitsOnly(form.phone),
+      });
       router.replace("/connect/thank-you");
     } catch (e) {
       setError(e.message);
@@ -127,7 +135,7 @@ export default function SurveyFlow({ steps, surveyVersion }) {
     <SurveyShell progress={progress} stepNumber={stepIndex + 1} totalSteps={steps.length}>
       <div className="survey-step">
         <p className="eyebrow stage-label">
-          Step 1 of 2{versionLabel} · Question {stepIndex + 1} of {steps.length}
+          Step 1 of 3{versionLabel} · Question {stepIndex + 1} of {steps.length}
         </p>
         <h1>{step.title}</h1>
         {step.subtitle && <p className="lead">{step.subtitle}</p>}
