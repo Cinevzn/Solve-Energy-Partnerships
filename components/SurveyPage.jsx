@@ -12,6 +12,7 @@ const INITIAL = {
   salesBackground: "",
   investmentParticipation: "",
   investmentTimeline: "",
+  investmentBudget: "",
   firstName: "",
   lastName: "",
   email: "",
@@ -21,14 +22,29 @@ const INITIAL = {
 
 const STEPS = [
   {
+    id: "investmentBudget",
+    type: "choice",
+    title: "What is your investment budget?",
+    subtitle: "Select the range that best matches the capital you are prepared to commit.",
+    disclaimer:
+      "We are focused on serious partners prepared to invest $100K or more.",
+    options: [
+      { value: "100k_200k", label: "$100K to $200K" },
+      { value: "250k_500k", label: "$250K to $500K" },
+      { value: "500k_1m", label: "$500K to $1M" },
+      { value: "1m_plus", label: "$1M+" },
+      { value: "not_a_fit", label: "I'm not a fit", variant: "muted" },
+    ],
+  },
+  {
     id: "salesBackground",
     type: "choice",
     title: "Do you have a background in sales?",
     subtitle:
       "We’re expanding into new markets and want to understand your experience.",
     options: [
-      { value: "yes_professional", label: "Yes — professional sales experience" },
-      { value: "yes_some", label: "Some — retail, referrals, or part-time" },
+      { value: "yes_professional", label: "Yes, professional sales experience" },
+      { value: "yes_some", label: "Some: retail, referrals, or part-time" },
       { value: "no", label: "No sales background" },
     ],
   },
@@ -37,8 +53,8 @@ const STEPS = [
     type: "choice",
     title: "How do you plan to participate?",
     options: [
-      { value: "active", label: "Active — hands-on (markets, introductions, operations)" },
-      { value: "passive", label: "Passive — capital only" },
+      { value: "active", label: "Active, hands-on (markets, introductions, operations)" },
+      { value: "passive", label: "Passive, capital only" },
       { value: "either", label: "Open to either" },
     ],
   },
@@ -47,9 +63,9 @@ const STEPS = [
     type: "choice",
     title: "What is your investing timeline?",
     options: [
-      { value: "0_3_months", label: "Next 0–3 months" },
-      { value: "3_6_months", label: "3–6 months" },
-      { value: "6_12_months", label: "6–12 months" },
+      { value: "0_3_months", label: "Next 0-3 months" },
+      { value: "3_6_months", label: "3-6 months" },
+      { value: "6_12_months", label: "6-12 months" },
       { value: "12_plus", label: "12+ months / undecided" },
     ],
   },
@@ -101,6 +117,11 @@ export default function SurveyPage() {
       return;
     }
 
+    if (step.id === "investmentBudget" && form.investmentBudget === "not_a_fit") {
+      router.replace("/connect/not-a-fit");
+      return;
+    }
+
     if (stepIndex < STEPS.length - 1) {
       setStepIndex((i) => i + 1);
       return;
@@ -118,7 +139,7 @@ export default function SurveyPage() {
         email: form.email.trim(),
         phone: form.phone,
       });
-      router.replace("/connect/profile");
+      router.replace("/connect/video");
     } catch (e) {
       setError(e.message);
     } finally {
@@ -143,8 +164,10 @@ export default function SurveyPage() {
   return (
     <SurveyShell progress={progress} stepNumber={stepIndex + 1} totalSteps={STEPS.length}>
       <div className="survey-step">
+        <p className="eyebrow stage-label">Step 1 of 3</p>
         <h1>{step.title}</h1>
         {step.subtitle && <p className="lead">{step.subtitle}</p>}
+        {step.disclaimer && <p className="survey-disclaimer">{step.disclaimer}</p>}
         {step.hint && <p className="hint">{step.hint}</p>}
 
         {step.type === "choice" && (
@@ -153,7 +176,7 @@ export default function SurveyPage() {
               <li key={opt.value}>
                 <button
                   type="button"
-                  className={`choice-btn ${form[step.id] === opt.value ? "selected" : ""}`}
+                  className={`choice-btn ${opt.variant === "muted" ? "choice-muted" : ""} ${form[step.id] === opt.value ? "selected" : ""}`}
                   onClick={() => handleChoice(opt.value)}
                 >
                   {opt.label}
@@ -252,9 +275,11 @@ export default function SurveyPage() {
           >
             {submitting
               ? "Submitting…"
-              : stepIndex === STEPS.length - 1
-                ? "Continue"
-                : "Continue"}
+              : step.id === "investmentBudget" && form.investmentBudget === "not_a_fit"
+                ? "Close"
+                : stepIndex === STEPS.length - 1
+                  ? "Continue"
+                  : "Continue"}
           </button>
         </div>
       </div>

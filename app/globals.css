@@ -141,6 +141,24 @@ body {
   color: #1a5c28;
 }
 
+.survey-disclaimer {
+  margin: -0.35rem 0 1.1rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  opacity: 0.9;
+}
+
+.choice-btn.choice-muted {
+  font-size: 0.98rem;
+  color: var(--text-muted);
+  border-style: dashed;
+}
+
+.choice-btn.choice-muted.selected {
+  color: var(--text);
+}
+
 .choice-list {
   list-style: none;
   margin: 0 0 1.5rem;
@@ -291,8 +309,102 @@ body {
   font-weight: 700;
 }
 
+.thank-you-subhead {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+}
+
+.video-wrap {
+  margin: 0 0 1.75rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--se-core);
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
+.video-iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.video-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 200px;
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  color: var(--se-concrete);
+}
+
+.video-placeholder-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 0.85rem;
+  border-radius: 999px;
+  border: 2px solid var(--se-concrete);
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+.video-placeholder-title {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--se-concrete);
+}
+
+.video-placeholder-copy {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: rgba(232, 235, 224, 0.75);
+  max-width: 28rem;
+}
+
+.video-placeholder-copy code {
+  font-size: 0.75rem;
+  color: var(--se-sky);
+}
+
+.video-continue-row {
+  margin-top: 1.25rem;
+}
+
+.textarea-prompts {
+  margin: 0 0 1rem;
+  padding-left: 1.15rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.textarea-prompts li {
+  margin-bottom: 0.35rem;
+}
+
+.char-count {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+}
+
+.char-count.char-count-ok {
+  color: var(--se-green-dim);
+}
+
 .calendar-wrap {
-  margin: 1.5rem 0;
+  margin: 0 0 1.5rem;
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
@@ -446,6 +558,10 @@ a.landing-cta {
   text-align: center;
   text-decoration: none;
   margin-left: 0;
+}
+
+a.btn.ghost.landing-cta {
+  color: var(--text-muted);
 }
 
 .landing-note {

@@ -27,7 +27,7 @@ export async function POST(request) {
   const payload = buildLeadPayload(parsed.data);
 
   if (!webhookUrl) {
-    console.warn("[leads] GHL_INBOUND_WEBHOOK_URL not set — logging payload only");
+    console.warn("[leads] GHL_INBOUND_WEBHOOK_URL not set; logging payload only");
     console.info(JSON.stringify(payload, null, 2));
     return Response.json({
       ok: true,

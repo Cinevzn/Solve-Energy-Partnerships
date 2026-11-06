@@ -6,13 +6,13 @@ const CALENDAR_URL = process.env.NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL?.trim();
 
 export default function ThankYouPage() {
   return (
-    <SurveyShell compact>
+    <SurveyShell compact progress={100}>
       <div className="thank-you">
-        <p className="eyebrow">Thank you</p>
+        <p className="eyebrow stage-label">Step 3 of 3</p>
         <h1>Schedule a conversation</h1>
         <p className="lead">
           Pick a time below. Our team will review your responses and come prepared to
-          discuss Solve Energy&apos;s market expansion and next steps.
+          discuss Solve Energy&apos;s market expansion with serious partners.
         </p>
 
         <div className="calendar-wrap">

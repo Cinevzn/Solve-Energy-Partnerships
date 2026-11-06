@@ -28,7 +28,7 @@ export async function POST(request) {
 
   if (!webhookUrl) {
     console.warn(
-      "[leads/profile] GHL_INBOUND_WEBHOOK_URL_STEP2 not set — logging payload only",
+      "[leads/profile] GHL_INBOUND_WEBHOOK_URL_STEP2 not set; logging payload only",
     );
     console.info(JSON.stringify(payload, null, 2));
     return Response.json({

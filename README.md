@@ -1,10 +1,10 @@
-# Solve Energy — investor survey funnel
+# Solve Energy investor survey funnel
 
 Survey-style Meta opt-in for **investors and expansion partners**: qualification → contact → **stage 2 profile** → thank-you with Go High Level calendar embed.
 
 ## Stack
 
-- **Next.js 15** (App Router) — React survey UI + `/api/leads` and `/api/leads/profile` for GHL webhooks
+- **Next.js 15** (App Router): React survey UI + `/api/leads` and `/api/leads/profile` for GHL webhooks
 - Deploy on **Vercel** (connected to GitHub)
 
 ## Quick start
@@ -20,9 +20,10 @@ Open http://localhost:3000
 | Route | Purpose |
 |-------|---------|
 | `/` | Investor landing (CTA to survey) |
-| `/connect` | Stage 1 — sales background, participation, timeline, contact |
-| `/connect/profile` | Stage 2 — location, relocation, investor background |
-| `/connect/thank-you` | Calendar / confirmation |
+| `/connect` | Step 1: qualification survey + contact (webhook 1) |
+| `/connect/video` | Partner overview video, then continue to step 2 |
+| `/connect/profile` | Step 2: location, relocation, investor background (webhook 2) |
+| `/connect/thank-you` | Step 3: calendar booking |
 
 Without webhook env vars, each API logs its JSON payload to the server console instead of forwarding.
 
@@ -34,6 +35,7 @@ Without webhook env vars, each API logs its JSON payload to the server console i
 | `GHL_INBOUND_WEBHOOK_URL_STEP2` | Server | Stage 2 GHL inbound webhook |
 | `NEXT_PUBLIC_FB_PIXEL_ID` | Public | Meta Pixel (when ready) |
 | `NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL` | Public | Thank-you calendar iframe `src` |
+| `NEXT_PUBLIC_BOOKING_VIDEO_URL` | Public | Partner overview video on `/connect/video` (between step 1 and 2) |
 
 ## Webhook payloads
 

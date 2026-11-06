@@ -1,11 +1,11 @@
-# GHL inbound webhook — JSON payloads
+# GHL inbound webhook JSON payloads
 
 `POST` your inbound webhook URL with `Content-Type: application/json`.
 
 | Stage | API route | Env variable |
 |-------|-----------|--------------|
-| 1 — Qualification + contact | `POST /api/leads` | `GHL_INBOUND_WEBHOOK_URL` |
-| 2 — Investor profile | `POST /api/leads/profile` | `GHL_INBOUND_WEBHOOK_URL_STEP2` |
+| 1: Qualification + contact | `POST /api/leads` | `GHL_INBOUND_WEBHOOK_URL` |
+| 2: Investor profile | `POST /api/leads/profile` | `GHL_INBOUND_WEBHOOK_URL_STEP2` |
 
 Use **email + phone** (or `parent_event_id` on stage 2) in GHL to update the same contact.
 
@@ -26,7 +26,8 @@ Use **email + phone** (or `parent_event_id` on stage 2) in GHL to update the sam
   "survey": {
     "sales_background": "yes_professional",
     "investment_participation": "active",
-    "investment_timeline": "0_3_months"
+    "investment_timeline": "0_3_months",
+    "investment_budget": "250k_500k"
   },
   "tracking": {
     "utm_source": "facebook",
@@ -56,6 +57,7 @@ Use **email + phone** (or `parent_event_id` on stage 2) in GHL to update the sam
 - **sales_background:** `yes_professional` | `yes_some` | `no`
 - **investment_participation:** `active` | `passive` | `either`
 - **investment_timeline:** `0_3_months` | `3_6_months` | `6_12_months` | `12_plus`
+- **investment_budget:** `100k_200k` | `250k_500k` | `500k_1m` | `1m_plus`
 
 ### Stage 1 tags
 
@@ -67,6 +69,7 @@ Use **email + phone** (or `parent_event_id` on stage 2) in GHL to update the sam
 | `stage-qualification` | Every submission |
 | `timeline-hot-0-3mo` | Timeline is `0_3_months` |
 | `investor-active-participant` | Participation is `active` |
+| `budget-500k-plus` | Budget is `500k_1m` or `1m_plus` |
 
 ## Stage 2 example
 
@@ -108,7 +111,7 @@ Use **email + phone** (or `parent_event_id` on stage 2) in GHL to update the sam
 
 - **location:** free text
 - **willing_to_relocate:** `yes` | `no` | `open_to_discuss` | `remote_only`
-- **investor_background:** free text (min 20 characters)
+- **investor_background:** free text (min 150 characters)
 
 | Tag | When applied |
 |-----|----------------|
