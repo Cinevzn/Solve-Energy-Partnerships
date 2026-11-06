@@ -3,14 +3,15 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import SurveyShell from "@/components/SurveyShell";
+import { setStoredLead } from "@/lib/leadSession";
 import { trackLead } from "@/lib/metaPixel";
 import { formatPhoneDisplay, isCompleteUsPhone } from "@/lib/phone";
 import { submitLead } from "@/lib/submitLead";
 
 const INITIAL = {
-  businessName: "",
-  businessType: "",
-  storeCount: "",
+  salesBackground: "",
+  investmentParticipation: "",
+  investmentTimeline: "",
   firstName: "",
   lastName: "",
   email: "",
@@ -20,38 +21,44 @@ const INITIAL = {
 
 const STEPS = [
   {
-    id: "businessName",
-    type: "text",
-    title: "What is the business name?",
-    placeholder: "Your store or company name",
-  },
-  {
-    id: "businessType",
+    id: "salesBackground",
     type: "choice",
-    title: "What is your business type?",
+    title: "Do you have a background in sales?",
+    subtitle:
+      "We’re expanding into new markets and want to understand your experience.",
     options: [
-      { value: "convenience_store", label: "Convenience Store" },
-      { value: "online_store", label: "Online Store" },
-      { value: "distributor", label: "Distributor" },
-      { value: "other", label: "Other" },
+      { value: "yes_professional", label: "Yes — professional sales experience" },
+      { value: "yes_some", label: "Some — retail, referrals, or part-time" },
+      { value: "no", label: "No sales background" },
     ],
   },
   {
-    id: "storeCount",
+    id: "investmentParticipation",
     type: "choice",
-    title: "Enter the number of stores you own",
+    title: "How do you plan to participate?",
     options: [
-      { value: "1", label: "1" },
-      { value: "2-5", label: "2–5" },
-      { value: "5-10", label: "5–10" },
-      { value: "10+", label: "10+" },
+      { value: "active", label: "Active — hands-on (markets, introductions, operations)" },
+      { value: "passive", label: "Passive — capital only" },
+      { value: "either", label: "Open to either" },
+    ],
+  },
+  {
+    id: "investmentTimeline",
+    type: "choice",
+    title: "What is your investing timeline?",
+    options: [
+      { value: "0_3_months", label: "Next 0–3 months" },
+      { value: "3_6_months", label: "3–6 months" },
+      { value: "6_12_months", label: "6–12 months" },
+      { value: "12_plus", label: "12+ months / undecided" },
     ],
   },
   {
     id: "contact",
     type: "contact",
-    title: "Where should we send wholesale info?",
-    subtitle: "A Tropix Distribution rep will reach out about lab-tested products and ordering.",
+    title: "Where should we send investor information?",
+    subtitle:
+      "A member of the Solve Energy team will follow up about our expansion opportunity.",
   },
 ];
 
@@ -82,7 +89,7 @@ export default function SurveyPage() {
         isCompleteUsPhone(form.phone)
       );
     }
-    if (step.type === "text") {
+    if (step.type === "text" || step.type === "textarea") {
       return Boolean(form[step.id]?.trim());
     }
     return Boolean(form[step.id]);
@@ -104,7 +111,14 @@ export default function SurveyPage() {
     try {
       const result = await submitLead(form);
       trackLead(result.eventId);
-      router.replace("/connect/thank-you");
+      setStoredLead({
+        eventId: result.eventId,
+        firstName: form.firstName.trim(),
+        lastName: form.lastName.trim(),
+        email: form.email.trim(),
+        phone: form.phone,
+      });
+      router.replace("/connect/profile");
     } catch (e) {
       setError(e.message);
     } finally {
@@ -132,27 +146,6 @@ export default function SurveyPage() {
         <h1>{step.title}</h1>
         {step.subtitle && <p className="lead">{step.subtitle}</p>}
         {step.hint && <p className="hint">{step.hint}</p>}
-
-        {step.type === "text" && (
-          <form
-            className="contact-form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleNext();
-            }}
-          >
-            <label>
-              Business name
-              <input
-                type="text"
-                autoComplete="organization"
-                placeholder={step.placeholder}
-                value={form[step.id]}
-                onChange={(e) => setField(step.id, e.target.value)}
-              />
-            </label>
-          </form>
-        )}
 
         {step.type === "choice" && (
           <ul className="choice-list" role="list">
@@ -260,7 +253,7 @@ export default function SurveyPage() {
             {submitting
               ? "Submitting…"
               : stepIndex === STEPS.length - 1
-                ? "Request wholesale info"
+                ? "Continue"
                 : "Continue"}
           </button>
         </div>

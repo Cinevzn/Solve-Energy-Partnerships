@@ -3,12 +3,12 @@ import "./globals.css";
 
 export const metadata = {
   title: {
-    default: "Tropix Distribution",
-    template: "%s | Tropix Distribution",
+    default: "Solve Energy — Investor inquiry",
+    template: "%s | Solve Energy",
   },
   description:
-    "Wholesale K Tropix for smokeshops and retail partners—lab-tested, GMP-certified products from Oregon.",
-  metadataBase: new URL("https://ktropix.com"),
+    "Learn about Solve Energy's expansion and share your investor background. Renewable solar across Western Canada.",
+  metadataBase: new URL("https://solveenergy.ca"),
   icons: {
     icon: [
       { url: "/branding/favicon-32.png", sizes: "32x32", type: "image/png" },
@@ -26,7 +26,7 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: "#242424",
+  themeColor: "#e8ebe0",
 };
 
 export default function RootLayout({ children }) {

@@ -1,18 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
 :root {
-  --kt-charcoal: #242424;
-  --kt-charcoal-mid: #2e2e2e;
-  --kt-lime: #91e32f;
-  --kt-lime-dim: #7bc428;
-  --bg: #242424;
-  --bg-elevated: #2e2e2e;
-  --text: #f8fafc;
-  --text-muted: #a3a3a3;
-  --accent: var(--kt-lime);
-  --accent-strong: var(--kt-lime-dim);
-  --border: #3d3d3d;
-  --danger: #f87171;
+  --se-core: #1e2418;
+  --se-concrete: #e8ebe0;
+  --se-green: #00b934;
+  --se-green-dim: #009a2c;
+  --se-sky: #badbe6;
+  --bg: #e8ebe0;
+  --bg-elevated: #f4f4f4;
+  --text: #1e2418;
+  --text-muted: #4a5240;
+  --accent: var(--se-green);
+  --accent-strong: var(--se-green-dim);
+  --border: #c5c9bc;
+  --danger: #c53030;
   --radius: 14px;
-  --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font: "Inter", system-ui, -apple-system, sans-serif;
 }
 
 *,
@@ -29,11 +32,7 @@ body {
   margin: 0;
   min-height: 100dvh;
   font-family: var(--font);
-  background: radial-gradient(
-    ellipse 120% 80% at 50% -20%,
-    var(--kt-charcoal-mid) 0%,
-    var(--bg) 55%
-  );
+  background: var(--bg);
   color: var(--text);
   line-height: 1.5;
 }
@@ -68,12 +67,12 @@ body {
 }
 
 .brand:hover .brand-name {
-  color: var(--kt-lime);
+  color: var(--se-green);
 }
 
 .brand-logo {
-  width: 44px;
-  height: 44px;
+  width: auto;
+  height: 36px;
   flex-shrink: 0;
   object-fit: contain;
 }
@@ -95,6 +94,10 @@ body {
   color: var(--text-muted);
 }
 
+.stage-label {
+  margin: 0 0 0.5rem;
+}
+
 .progress-track {
   height: 4px;
   background: var(--border);
@@ -105,7 +108,7 @@ body {
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--kt-lime-dim), var(--kt-lime));
+  background: linear-gradient(90deg, var(--se-green-dim), var(--se-green));
   border-radius: 999px;
   transition: width 0.35s ease;
 }
@@ -119,7 +122,7 @@ body {
   font-size: clamp(1.35rem, 4.5vw, 1.75rem);
   line-height: 1.25;
   margin: 0 0 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .lead {
@@ -131,11 +134,11 @@ body {
 .hint {
   margin: -0.5rem 0 1.25rem;
   padding: 0.75rem 1rem;
-  background: rgba(145, 227, 47, 0.08);
-  border: 1px solid rgba(145, 227, 47, 0.28);
+  background: rgba(0, 185, 52, 0.08);
+  border: 1px solid rgba(0, 185, 52, 0.28);
   border-radius: var(--radius);
   font-size: 0.875rem;
-  color: #d4f5a8;
+  color: #1a5c28;
 }
 
 .choice-list {
@@ -162,7 +165,7 @@ body {
 }
 
 .choice-btn:hover {
-  border-color: #525252;
+  border-color: #9aa392;
 }
 
 .choice-btn:active {
@@ -171,8 +174,8 @@ body {
 
 .choice-btn.selected {
   border-color: var(--accent);
-  background: rgba(145, 227, 47, 0.12);
-  box-shadow: 0 0 0 1px rgba(145, 227, 47, 0.35);
+  background: rgba(0, 185, 52, 0.1);
+  box-shadow: 0 0 0 1px rgba(0, 185, 52, 0.35);
 }
 
 .contact-form {
@@ -202,7 +205,8 @@ body {
   color: var(--text-muted);
 }
 
-.contact-form input {
+.contact-form input,
+.contact-form textarea {
   font: inherit;
   font-size: 1rem;
   padding: 0.85rem 1rem;
@@ -210,9 +214,11 @@ body {
   border: 2px solid var(--border);
   background: var(--bg-elevated);
   color: var(--text);
+  resize: vertical;
 }
 
-.contact-form input:focus {
+.contact-form input:focus,
+.contact-form textarea:focus {
   outline: none;
   border-color: var(--accent);
 }
@@ -236,10 +242,10 @@ body {
   font: inherit;
   font-weight: 600;
   padding: 0.85rem 1.35rem;
-  border-radius: var(--radius);
+  border-radius: 999px;
   border: none;
   cursor: pointer;
-  transition: opacity 0.15s, transform 0.1s;
+  transition: opacity 0.15s, transform 0.1s, background 0.15s;
 }
 
 .btn:disabled {
@@ -248,9 +254,15 @@ body {
 }
 
 .btn.primary {
-  background: linear-gradient(135deg, var(--kt-lime-dim), var(--kt-lime));
-  color: var(--kt-charcoal);
+  background: var(--se-green);
+  color: var(--se-concrete);
+  border: 2px solid var(--se-core);
   margin-left: auto;
+}
+
+.btn.primary:not(:disabled):hover {
+  background: var(--se-sky);
+  color: var(--se-core);
 }
 
 .btn.primary:not(:disabled):active {
@@ -260,7 +272,7 @@ body {
 .btn.ghost {
   background: transparent;
   color: var(--text-muted);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
 }
 
 .error {
@@ -269,13 +281,14 @@ body {
   margin: 0 0 0.75rem;
 }
 
-.thank-you .eyebrow {
+.thank-you .eyebrow,
+.survey-step .eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.75rem;
   color: var(--accent);
   margin: 0 0 0.5rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .calendar-wrap {
@@ -304,7 +317,7 @@ body {
 
 .calendar-placeholder code {
   font-size: 0.8rem;
-  color: var(--accent);
+  color: var(--se-core);
 }
 
 .fine-print {
@@ -312,6 +325,18 @@ body {
   color: var(--text-muted);
   text-align: center;
   margin: 1rem 0 0;
+}
+
+.fine-print a {
+  color: var(--text-muted);
+}
+
+.fine-print a:hover {
+  color: var(--se-green);
+}
+
+.profile-skip-note {
+  margin-top: 1.25rem;
 }
 
 .site-footer {
@@ -335,20 +360,21 @@ body {
 }
 
 .footer-monogram {
-  width: 56px;
+  width: 120px;
   height: auto;
-  opacity: 0.45;
+  opacity: 0.55;
   object-fit: contain;
   transition: opacity 0.15s;
 }
 
 .footer-logo-link:hover .footer-monogram {
-  opacity: 0.75;
+  opacity: 0.85;
 }
 
 .landing h1 {
   font-size: clamp(1.5rem, 5vw, 2rem);
   margin-bottom: 0.85rem;
+  font-weight: 500;
 }
 
 .landing .eyebrow {
@@ -357,7 +383,7 @@ body {
   font-size: 0.75rem;
   color: var(--accent);
   margin: 0 0 0.5rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .value-list {
@@ -401,8 +427,8 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  background: rgba(145, 227, 47, 0.15);
-  color: var(--kt-lime);
+  background: rgba(0, 185, 52, 0.15);
+  color: var(--se-green);
   font-weight: 700;
   font-size: 0.85rem;
 }
@@ -434,5 +460,12 @@ a.landing-cta {
 }
 
 .landing-trust a:hover {
-  color: var(--kt-lime);
+  color: var(--se-green);
+}
+
+.disclaimer {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-top: 1rem;
 }

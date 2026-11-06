@@ -1,67 +1,124 @@
-# GHL inbound webhook — standard JSON payload
+# GHL inbound webhook — JSON payloads
 
 `POST` your inbound webhook URL with `Content-Type: application/json`.
 
-The funnel API (`POST /api/leads`) builds and forwards this body automatically.
+| Stage | API route | Env variable |
+|-------|-----------|--------------|
+| 1 — Qualification + contact | `POST /api/leads` | `GHL_INBOUND_WEBHOOK_URL` |
+| 2 — Investor profile | `POST /api/leads/profile` | `GHL_INBOUND_WEBHOOK_URL_STEP2` |
 
-## Example
+Use **email + phone** (or `parent_event_id` on stage 2) in GHL to update the same contact.
+
+## Stage 1 example
 
 ```json
 {
   "source": "Facebook Survey Funnel",
-  "funnel": "b2b.ktropix.com",
+  "funnel": "invest.solveenergy.ca",
+  "stage": "qualification",
   "event_id": "550e8400-e29b-41d4-a716-446655440000",
   "contact": {
     "firstName": "Jane",
     "lastName": "Doe",
-    "email": "jane@smokeshop.example.com",
-    "phone": "+15551234567",
-    "companyName": "Jane's Smoke & Vape"
+    "email": "jane@example.com",
+    "phone": "+16045551234"
   },
   "survey": {
-    "business_name": "Jane's Smoke & Vape",
-    "business_type": "convenience_store",
-    "store_count": "2-5"
+    "sales_background": "yes_professional",
+    "investment_participation": "active",
+    "investment_timeline": "0_3_months"
   },
   "tracking": {
     "utm_source": "facebook",
     "utm_medium": "paid",
-    "utm_campaign": "ktropix_b2b_q1",
+    "utm_campaign": "solve_expansion_q1",
     "utm_content": "carousel_v1",
     "utm_term": "",
     "fbclid": ""
   },
   "tags": [
     "facebook-funnel",
-    "b2b-wholesale",
-    "smokeshop-survey"
+    "investor-funnel",
+    "solve-energy",
+    "stage-qualification",
+    "timeline-hot-0-3mo",
+    "investor-active-participant"
   ],
   "meta": {
     "event_id": "550e8400-e29b-41d4-a716-446655440000",
-    "submitted_at": "2026-10-07T12:00:00.000Z"
+    "submitted_at": "2026-11-05T12:00:00.000Z"
   }
 }
 ```
 
-## Tags
+### Stage 1 survey field values
+
+- **sales_background:** `yes_professional` | `yes_some` | `no`
+- **investment_participation:** `active` | `passive` | `either`
+- **investment_timeline:** `0_3_months` | `3_6_months` | `6_12_months` | `12_plus`
+
+### Stage 1 tags
 
 | Tag | When applied |
 |-----|----------------|
 | `facebook-funnel` | Every submission |
-| `b2b-wholesale` | Every submission |
-| `smokeshop-survey` | Every submission |
-| `multi-store-10-plus` | `store_count` is `10+` |
+| `investor-funnel` | Every submission |
+| `solve-energy` | Every submission |
+| `stage-qualification` | Every submission |
+| `timeline-hot-0-3mo` | Timeline is `0_3_months` |
+| `investor-active-participant` | Participation is `active` |
 
-## Survey field values
+## Stage 2 example
 
-- **business_name:** free text (also on `contact.companyName`)
-- **business_type:** `convenience_store` \| `online_store` \| `distributor` \| `other`
-- **store_count:** `1` \| `2-5` \| `5-10` \| `10+`
+```json
+{
+  "source": "Facebook Survey Funnel",
+  "funnel": "invest.solveenergy.ca",
+  "stage": "investor_profile",
+  "event_id": "660e8400-e29b-41d4-a716-446655440001",
+  "parent_event_id": "550e8400-e29b-41d4-a716-446655440000",
+  "contact": {
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "email": "jane@example.com",
+    "phone": "+16045551234"
+  },
+  "survey": {
+    "location": "Calgary, AB",
+    "willing_to_relocate": "open_to_discuss",
+    "investor_background": "Former regional sales director with experience in home services…"
+  },
+  "tracking": { "utm_source": "facebook", "utm_medium": "paid", "utm_campaign": "", "utm_content": "", "utm_term": "", "fbclid": "" },
+  "tags": [
+    "facebook-funnel",
+    "investor-funnel",
+    "solve-energy",
+    "stage-investor-profile",
+    "profile-complete"
+  ],
+  "meta": {
+    "event_id": "660e8400-e29b-41d4-a716-446655440001",
+    "parent_event_id": "550e8400-e29b-41d4-a716-446655440000",
+    "submitted_at": "2026-11-05T12:05:00.000Z"
+  }
+}
+```
+
+### Stage 2 survey field values
+
+- **location:** free text
+- **willing_to_relocate:** `yes` | `no` | `open_to_discuss` | `remote_only`
+- **investor_background:** free text (min 20 characters)
+
+| Tag | When applied |
+|-----|----------------|
+| `profile-complete` | Every stage 2 submission |
+| `willing-relocate-yes` | Relocation is `yes` |
 
 ## Meta Pixel deduplication
 
-Use the same `event_id` / `meta.event_id` in Go High Level CAPI (Lead event) as the browser Pixel `Lead` event (`eventID` option).
+Use the stage 1 `event_id` / `meta.event_id` in Go High Level CAPI (Lead event) as the browser Pixel `Lead` event (`eventID` option). Stage 2 does not fire Lead by default.
 
 ## Configuration
 
-Set `GHL_INBOUND_WEBHOOK_URL` in `.env.local`. Map JSON paths in your GHL inbound webhook workflow to contact fields and tags.
+Set webhook URLs in `.env.local`. Map JSON paths in your GHL inbound webhook workflows to contact fields and tags.

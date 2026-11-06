@@ -1,4 +1,4 @@
-const LOGO_SRC = "/branding/kt-logo-icon.png";
+const LOGO_SRC = "/branding/solve-logo.svg";
 
 export default function SurveyShell({
   children,
@@ -13,13 +13,12 @@ export default function SurveyShell({
         <a className="brand" href="/">
           <img
             src={LOGO_SRC}
-            alt="Tropix Distribution"
+            alt="Solve Energy"
             className="brand-logo"
-            width={44}
-            height={44}
+            width={140}
+            height={36}
             decoding="async"
           />
-          <span className="brand-name">Tropix Distribution</span>
         </a>
         {!compact && stepNumber != null && (
           <p className="step-label">
@@ -28,7 +27,7 @@ export default function SurveyShell({
         )}
       </header>
 
-      {!compact && (
+      {!compact && progress != null && (
         <div className="progress-track" aria-hidden="true">
           <div className="progress-fill" style={{ width: `${progress}%` }} />
         </div>
@@ -39,17 +38,17 @@ export default function SurveyShell({
       <footer className="site-footer">
         <a
           className="footer-logo-link"
-          href="https://ktropix.com"
+          href="https://solveenergy.ca"
           target="_blank"
           rel="noreferrer"
-          aria-label="Visit ktropix.com"
+          aria-label="Visit solveenergy.ca"
         >
           <img
             src={LOGO_SRC}
             alt=""
             className="footer-monogram"
-            width={72}
-            height={36}
+            width={120}
+            height={32}
             decoding="async"
             aria-hidden="true"
           />

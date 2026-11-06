@@ -6,19 +6,19 @@ const CALENDAR_URL = process.env.NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL?.trim();
 
 export default function ThankYouPage() {
   return (
-    <SurveyShell progress={100} stepNumber={null} totalSteps={null} compact>
+    <SurveyShell compact>
       <div className="thank-you">
-        <p className="eyebrow">You&apos;re all set</p>
-        <h1>Book a wholesale call</h1>
+        <p className="eyebrow">Thank you</p>
+        <h1>Schedule a conversation</h1>
         <p className="lead">
-          Pick a time below. Our team will review your store profile and come prepared with
-          product and ordering details.
+          Pick a time below. Our team will review your responses and come prepared to
+          discuss Solve Energy&apos;s market expansion and next steps.
         </p>
 
         <div className="calendar-wrap">
           {CALENDAR_URL ? (
             <iframe
-              title="Book a wholesale call"
+              title="Book a call with Solve Energy"
               src={CALENDAR_URL}
               className="calendar-iframe"
               loading="lazy"
@@ -27,15 +27,16 @@ export default function ThankYouPage() {
             <div className="calendar-placeholder">
               <p>
                 Calendar embed will appear here once{" "}
-                <code>NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL</code> is configured with your Go High
-                Level booking link.
+                <code>NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL</code> is configured with your
+                Go High Level booking link.
               </p>
             </div>
           )}
         </div>
 
         <p className="fine-print">
-          Tropix Distribution · GMP certified · Lab tested · Keizer, Oregon
+          Solve Energy · Victoria · Langley · Kelowna ·{" "}
+          <a href="tel:+18886676583">1-888-667-6583</a>
         </p>
       </div>
     </SurveyShell>

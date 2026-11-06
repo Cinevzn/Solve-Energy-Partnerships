@@ -3,16 +3,16 @@ import SurveyShell from "@/components/SurveyShell";
 
 const VALUE_POINTS = [
   {
-    title: "Lab-tested every batch",
-    body: "Certificate of Analysis on every product—easy for you and your customers to trust.",
+    title: "Renewable energy made simple",
+    body: "Personalized solar solutions across Western Canada, helping homeowners and businesses lower bills and carbon footprint.",
   },
   {
-    title: "GMP certified",
-    body: "Manufactured to strict quality standards, formulated and packed in Keizer, Oregon.",
+    title: "Proven team & installs",
+    body: "Experienced crews, clear communication, and installs from Victoria to Kelowna and Langley.",
   },
   {
-    title: "Built for retail",
-    body: "Liquid shots, capsules, gummies, and powders your smokeshop customers already ask for.",
+    title: "Expanding into new markets",
+    body: "We’re raising partnership and investment interest to grow clean energy access in additional communities.",
   },
 ];
 
@@ -20,12 +20,12 @@ export default function LandingPage() {
   return (
     <SurveyShell compact>
       <div className="landing">
-        <p className="eyebrow">Wholesale partners</p>
-        <h1>Bring lab-tested K Tropix to your stores</h1>
+        <p className="eyebrow">Investment opportunity</p>
+        <h1>Partner with Solve Energy as we launch new markets</h1>
         <p className="lead">
-          Tropix Distribution works with smokeshops, convenience stores, and distributors
-          nationwide. Tell us about your business—we&apos;ll follow up with wholesale pricing
-          and ordering details.
+          Solve Energy is building a sustainable future with affordable clean power.
+          Share a few details about your background and timeline. We&apos;ll follow up with
+          information about our expansion plans.
         </p>
 
         <ul className="value-list">
@@ -44,16 +44,21 @@ export default function LandingPage() {
 
         <div className="landing-actions">
           <Link href="/connect" className="btn primary landing-cta">
-            Start partner application
+            Start investor inquiry
           </Link>
-          <p className="landing-note">Takes about 2 minutes · No obligation</p>
+          <p className="landing-note">Takes about 3 minutes · No obligation</p>
         </div>
 
         <p className="fine-print landing-trust">
-          Tropix Distribution · GMP certified · Lab tested ·{" "}
-          <a href="https://ktropix.com" target="_blank" rel="noreferrer">
-            ktropix.com
+          Solve Energy · British Columbia ·{" "}
+          <a href="https://solveenergy.ca" target="_blank" rel="noreferrer">
+            solveenergy.ca
           </a>
+        </p>
+        <p className="disclaimer">
+          This page is for informational interest only and does not constitute an offer
+          to sell securities. Opportunities may be available only to eligible investors
+          under applicable laws.
         </p>
       </div>
     </SurveyShell>

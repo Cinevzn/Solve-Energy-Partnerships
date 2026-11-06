@@ -1,10 +1,10 @@
-# Tropix Distribution — B2B wholesale survey funnel
+# Solve Energy — investor survey funnel
 
-Survey-style Meta opt-in for **smokeshop and retail partners**: business qualification → contact capture → thank-you page with Go High Level calendar embed.
+Survey-style Meta opt-in for **investors and expansion partners**: qualification → contact → **stage 2 profile** → thank-you with Go High Level calendar embed.
 
 ## Stack
 
-- **Next.js 15** (App Router) — React survey UI + `/api/leads` for GHL webhook
+- **Next.js 15** (App Router) — React survey UI + `/api/leads` and `/api/leads/profile` for GHL webhooks
 - Deploy on **Vercel** (connected to GitHub)
 
 ## Quick start
@@ -19,38 +19,40 @@ Open http://localhost:3000
 
 | Route | Purpose |
 |-------|---------|
-| `/` | One-page wholesale landing (CTA to survey) |
-| `/connect` | Partner survey funnel |
-| `/connect/thank-you` | Calendar / confirmation after submit |
+| `/` | Investor landing (CTA to survey) |
+| `/connect` | Stage 1 — sales background, participation, timeline, contact |
+| `/connect/profile` | Stage 2 — location, relocation, investor background |
+| `/connect/thank-you` | Calendar / confirmation |
 
-Without `GHL_INBOUND_WEBHOOK_URL`, the API logs the JSON payload to the server console instead of forwarding.
+Without webhook env vars, each API logs its JSON payload to the server console instead of forwarding.
 
 ## Environment (Vercel + `.env.local`)
 
 | Variable | Scope | Purpose |
 |----------|--------|---------|
-| `GHL_INBOUND_WEBHOOK_URL` | Server | GHL inbound webhook |
+| `GHL_INBOUND_WEBHOOK_URL` | Server | Stage 1 GHL inbound webhook |
+| `GHL_INBOUND_WEBHOOK_URL_STEP2` | Server | Stage 2 GHL inbound webhook |
 | `NEXT_PUBLIC_FB_PIXEL_ID` | Public | Meta Pixel (when ready) |
 | `NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL` | Public | Thank-you calendar iframe `src` |
 
-## Webhook payload
+## Webhook payloads
 
 See [docs/webhook-payload.md](./docs/webhook-payload.md).
 
 ## Brand
 
-Primary colors: `#91E32F` (accent), `#242424` (background). Logo in `public/branding/`.
+Solve Energy palette: `#1E2418`, `#E8EBE0`, `#00B934`, `#BADBE6`. Logo: `public/branding/solve-logo.svg`.
 
 ## Deploy
 
 Push to `main` on GitHub; Vercel runs `next build` automatically.
 
-Set environment variables in the Vercel dashboard for your B2B domain.
+Set environment variables in the Vercel dashboard for your campaign domain.
 
 ## Facebook ad URL (tracking)
 
 ```
-https://YOUR-B2B-DOMAIN/connect?utm_source=facebook&utm_medium=paid&utm_campaign=YOUR_CAMPAIGN&utm_content=YOUR_AD&fbclid={{fbclid}}
+https://YOUR-DOMAIN/connect?utm_source=facebook&utm_medium=paid&utm_campaign=YOUR_CAMPAIGN&utm_content=YOUR_AD&fbclid={{fbclid}}
 ```
 
 UTMs and `fbclid` are stored in session storage on landing and included in every webhook payload.

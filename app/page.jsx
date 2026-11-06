@@ -1,9 +1,9 @@
 import LandingPage from "@/components/LandingPage";
 
 export const metadata = {
-  title: "Wholesale for smoke shops",
+  title: "Invest in new markets",
   description:
-    "Partner with Tropix Distribution for lab-tested, GMP-certified K Tropix products. Apply for wholesale in minutes.",
+    "Partner with Solve Energy as we expand clean solar across Western Canada. Start your investor inquiry in minutes.",
 };
 
 export default function Home() {
