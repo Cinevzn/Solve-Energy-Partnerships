@@ -1,7 +1,16 @@
 import { MARKET_OPTIONS } from "@/lib/markets";
 
+export const ACCREDITED_INVESTOR_OPTIONS = [
+  { value: "income_over_200k", label: "Yes, I make over $200,000 per year" },
+  { value: "income_over_300k_household", label: "Yes, I make over $300,000 including a spouse" },
+  { value: "assets_over_1m", label: "Yes, I have over $1M+ in assets" },
+  { value: "not_sure", label: "I am not sure" },
+  { value: "not_accredited", label: "I am not", variant: "muted" },
+];
+
 export function getInitialForm() {
   return {
+    accreditedInvestor: "",
     marketInterest: "",
     participationModel: "",
     basedNear: "",
@@ -38,6 +47,15 @@ export function buildSurveySteps(marketPresentation = "list") {
         };
 
   return [
+    {
+      id: "accreditedInvestor",
+      type: "choice",
+      title: "First, are you an accredited investor?",
+      subtitle:
+        "Canadian partnership opportunities on this page are limited to accredited investors.",
+      options: ACCREDITED_INVESTOR_OPTIONS,
+      disqualifyOn: ["not_accredited"],
+    },
     marketStep,
     {
       id: "participationModel",

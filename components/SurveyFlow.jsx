@@ -18,6 +18,7 @@ export default function SurveyFlow({ steps, surveyVersion }) {
   const [form, setForm] = useState(() => ({ ...getInitialForm(), surveyVersion }));
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [disqualified, setDisqualified] = useState(false);
   const advanceTimerRef = useRef(null);
   const stepIndexRef = useRef(0);
 
@@ -77,6 +78,13 @@ export default function SurveyFlow({ steps, surveyVersion }) {
     setForm((prev) => ({ ...prev, [id]: value }));
     setError("");
 
+    if (step.disqualifyOn?.includes(value)) {
+      setDisqualified(true);
+      return;
+    }
+
+    setDisqualified(false);
+
     advanceTimerRef.current = setTimeout(() => {
       advanceTimerRef.current = null;
       if (stepIndexRef.current !== currentIndex) return;
@@ -123,23 +131,43 @@ export default function SurveyFlow({ steps, surveyVersion }) {
     setError("");
   }
 
+  function handleTryAgain() {
+    clearAdvanceTimer();
+    setDisqualified(false);
+    setForm((prev) => ({ ...prev, accreditedInvestor: "" }));
+    setError("");
+  }
+
+  function handleClosePage() {
+    window.close();
+    router.replace("/");
+  }
+
   function handlePhoneChange(raw) {
     setField("phone", formatPhoneDisplay(raw));
   }
-
-  const versionLabel = surveyVersion === "v2" ? " (map)" : "";
 
   const showManualContinue = step.type === "contact" || step.type === "market_map";
 
   return (
     <SurveyShell progress={progress} stepNumber={stepIndex + 1} totalSteps={steps.length}>
       <div className="survey-step">
-        <p className="eyebrow stage-label">
-          Step 1 of 3{versionLabel} · Question {stepIndex + 1} of {steps.length}
-        </p>
-        <h1>{step.title}</h1>
-        {step.subtitle && <p className="lead">{step.subtitle}</p>}
+        <p className="eyebrow stage-label">Step 1 of 3</p>
+        <h1>{disqualified ? "You\u2019re not eligible to continue" : step.title}</h1>
+        {step.subtitle && !disqualified && <p className="lead">{step.subtitle}</p>}
 
+        {disqualified ? (
+          <div className="survey-disqualified" role="status">
+            <p className="survey-disqualified-lead">
+              This program is limited to accredited investors, so we can&apos;t move forward based on your
+              answer.
+            </p>
+            <p className="survey-disqualified-copy">
+              If you chose <strong>I am not</strong> by mistake, try again. Otherwise, close this page.
+            </p>
+          </div>
+        ) : (
+          <>
         {step.type === "market_map" && (
           <MarketMapPicker
             value={form.marketInterest}
@@ -252,6 +280,8 @@ export default function SurveyFlow({ steps, surveyVersion }) {
             </label>
           </form>
         )}
+          </>
+        )}
 
         {error && (
           <p className="error" role="alert">
@@ -259,31 +289,42 @@ export default function SurveyFlow({ steps, surveyVersion }) {
           </p>
         )}
 
-        <div className="nav-row">
-          {stepIndex > 0 ? (
-            <button type="button" className="btn ghost" onClick={handleBack} disabled={submitting}>
-              Back
+        {disqualified ? (
+          <div className="nav-row survey-disqualified-actions">
+            <button type="button" className="btn ghost" onClick={handleClosePage}>
+              Close page
             </button>
-          ) : (
-            <span />
-          )}
-          {showManualContinue ? (
-            <button
-              type="button"
-              className="btn primary"
-              onClick={handleNext}
-              disabled={submitting || !canContinue()}
-            >
-              {submitting
-                ? "Submitting…"
-                : stepIndex === steps.length - 1
-                  ? "Submit and continue"
-                  : "Continue"}
+            <button type="button" className="btn primary" onClick={handleTryAgain}>
+              Try again
             </button>
-          ) : (
-            <p className="auto-advance-hint">Next step opens when you choose an option</p>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="nav-row">
+            {stepIndex > 0 ? (
+              <button type="button" className="btn ghost" onClick={handleBack} disabled={submitting}>
+                Back
+              </button>
+            ) : (
+              <span />
+            )}
+            {showManualContinue ? (
+              <button
+                type="button"
+                className="btn primary"
+                onClick={handleNext}
+                disabled={submitting || !canContinue()}
+              >
+                {submitting
+                  ? "Submitting…"
+                  : stepIndex === steps.length - 1
+                    ? "Submit and continue"
+                    : "Continue"}
+              </button>
+            ) : (
+              <p className="auto-advance-hint">Next step opens when you choose an option</p>
+            )}
+          </div>
+        )}
       </div>
     </SurveyShell>
   );

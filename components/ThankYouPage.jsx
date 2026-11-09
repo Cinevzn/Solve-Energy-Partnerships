@@ -103,7 +103,7 @@ export default function ThankYouPage() {
                     alt={photo.alt}
                     fill
                     className="team-strip-photo"
-                    sizes="(max-width: 640px) 42vw, (max-width: 900px) 28vw, 18vw"
+                    sizes="(max-width: 640px) 42vw, (max-width: 899px) 28vw, (max-width: 1199px) 18vw, 220px"
                   />
                 </div>
               </li>

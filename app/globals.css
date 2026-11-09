@@ -46,6 +46,15 @@ body {
   padding: 1rem 1.25rem 2rem;
 }
 
+/* Thank-you + booking: more room on desktop to showcase video, calendar, and team photos */
+@media (min-width: 900px) {
+  .page:has(.thank-you) {
+    max-width: 56rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
 .site-header {
   display: flex;
   align-items: center;
@@ -147,6 +156,38 @@ body {
   line-height: 1.45;
   color: var(--text-muted);
   opacity: 0.9;
+}
+
+.survey-disqualified {
+  margin: 0 0 1.25rem;
+  padding: 1.15rem 1.1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+}
+
+.survey-disqualified-lead {
+  margin: 0 0 0.75rem;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.survey-disqualified-copy {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.survey-disqualified-copy strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.survey-disqualified-actions {
+  margin-top: 0.25rem;
 }
 
 .choice-btn.choice-muted {
@@ -753,6 +794,21 @@ body {
   }
 }
 
+@media (min-width: 900px) {
+  .thank-you .team-strip {
+    margin-bottom: 2rem;
+  }
+
+  .thank-you .team-strip-grid {
+    gap: 1rem;
+  }
+
+  .thank-you .team-strip-photo-wrap {
+    border-radius: calc(var(--radius) + 2px);
+    box-shadow: 0 4px 14px rgba(30, 36, 24, 0.12);
+  }
+}
+
 .team-strip-item {
   margin: 0;
 }
@@ -780,6 +836,13 @@ body {
   background: var(--se-core);
   aspect-ratio: 16 / 9;
   width: 100%;
+}
+
+@media (min-width: 900px) {
+  .thank-you .video-wrap {
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 24px rgba(30, 36, 24, 0.14);
+  }
 }
 
 .video-iframe {
@@ -875,6 +938,19 @@ body {
   min-height: 520px;
   border: 0;
   display: block;
+}
+
+@media (min-width: 900px) {
+  .thank-you .calendar-wrap {
+    margin-bottom: 2rem;
+    min-height: 640px;
+    box-shadow: 0 4px 24px rgba(30, 36, 24, 0.1);
+  }
+
+  .thank-you .calendar-iframe {
+    height: min(880px, 82dvh);
+    min-height: 640px;
+  }
 }
 
 .calendar-placeholder {

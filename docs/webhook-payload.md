@@ -20,6 +20,7 @@ The funnel API (`POST /api/leads`) builds and forwards this body after the surve
   },
   "survey": {
     "survey_version": "v1",
+    "accredited_investor": "income_over_200k",
     "market_interest": "calgary_ab",
     "participation_model": "hands_on_run_market",
     "based_near": "live_in_market",
@@ -54,6 +55,7 @@ The funnel API (`POST /api/leads`) builds and forwards this body after the surve
 ## Survey field values
 
 - **survey_version:** `v1` (market list at `/connect/v1`) | `v2` (map picker at `/connect`, default)
+- **accredited_investor:** `income_over_200k` | `income_over_300k_household` | `assets_over_1m` | `not_sure` | `not_accredited` (disqualified in UI before submit — should not appear on completed leads)
 - **market_interest:** `calgary_ab` | `edmonton_ab` | `red_deer_ab` | `lethbridge_ab` | `grande_prairie_ab` | `saskatoon_sk` | `regina_sk` | `winnipeg_mb` | `toronto_on` | `ottawa_on` | `kingston_on` | `windsor_on` | `sudbury_on` | `montreal_qc` | `quebec_city_qc` | `new_brunswick` | `halifax_ns` | `st_johns_nl` | `other_city`
 - **participation_model:** `hands_on_run_market` | `invest_solve_team` | `unsure_both`
 - **based_near:** `live_in_market` | `within_hour` | `would_relocate` | `remote`
@@ -74,6 +76,7 @@ The funnel API (`POST /api/leads`) builds and forwards this body after the surve
 | `hands-on-market` | `participation_model` is `hands_on_run_market` |
 | `capital-750k-plus` | `capital_available` is `750k_1m` or `1m_plus` |
 | `survey-v2-map` | `survey_version` is `v2` (submitted from `/connect` or legacy `/connect/v2`) |
+| `accredited-not-sure` | `accredited_investor` is `not_sure` |
 
 ## Meta Pixel deduplication
 
