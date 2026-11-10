@@ -123,7 +123,7 @@ export function buildSurveySteps(marketPresentation = "list") {
       type: "contact",
       title: "How can we reach you?",
       subtitle:
-        "Enter your details so we can follow up after you watch the overview and book a call.",
+        "Enter your details so we can follow up after you watch the overview and book your investor partnership call.",
     },
   ];
 }
