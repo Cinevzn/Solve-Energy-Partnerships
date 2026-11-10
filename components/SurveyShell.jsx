@@ -22,7 +22,7 @@ export default function SurveyShell({
         </a>
         {!compact && stepNumber != null && (
           <p className="step-label">
-            Step {stepNumber} of {totalSteps}
+            Question {stepNumber} of {totalSteps}
           </p>
         )}
       </header>
