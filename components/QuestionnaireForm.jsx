@@ -68,6 +68,15 @@ function emptyForm() {
   };
 }
 
+const LEAD_EVENT_ID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+function normalizeLeadEventId(raw) {
+  const id = raw?.trim() ?? "";
+  if (!id) return "";
+  return LEAD_EVENT_ID_RE.test(id) ? id : "";
+}
+
 function contactComplete(f) {
   return (
     Boolean(f.firstName?.trim()) &&
@@ -151,10 +160,6 @@ export default function QuestionnaireForm() {
     if (!form.lastName.trim()) return "Please enter your last name.";
     if (!form.email.trim()) return "Please enter your email.";
     if (!isCompleteUsPhone(form.phone)) return "Please enter a valid 10-digit phone number.";
-    const leadId = form.leadEventId.trim();
-    if (leadId && !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(leadId)) {
-      return "Original submission ID must be a valid UUID or left blank.";
-    }
     if (!form.q1ThinkingChanged) return "Please answer question 1.";
     if (handsBranch) {
       if (!form.q9PeopleResponsible) return "Please answer question 9.";
@@ -191,7 +196,7 @@ export default function QuestionnaireForm() {
     try {
       await submitQuestionnaire({
         ...form,
-        leadEventId: form.leadEventId.trim(),
+        leadEventId: normalizeLeadEventId(form.leadEventId),
         phoneDigits: phoneDigitsOnly(form.phone),
       });
       setDone(true);
@@ -238,12 +243,11 @@ export default function QuestionnaireForm() {
         <p className="eyebrow stage-label">Step 3 of 3 · Partner questionnaire</p>
         <h1>A few more questions</h1>
         <p className="lead">
-          Question 1 is required: it decides what you see next (questions 9 to 12 for hands-on or &quot;still
-          not sure&quot;; questions 9 to 10 for invest-only). Questions 2 to 8 and 17 are optional. Questions
-          13 to 16 are required.
+          Please complete this questionnaire so we can better understand your background, goals, and fit as an
+          investor partner before your call. Some questions are required; others are optional.
           {showContactFields
-            ? " Enter your contact details below (or open the link from your email with your info included)."
-            : " We already have your contact details from your application or your link."}
+            ? " Add your contact details below if we do not already have them on file."
+            : " We already have your contact details from your application."}
         </p>
 
         {!showContactFields ? (
@@ -306,16 +310,6 @@ export default function QuestionnaireForm() {
                   e.preventDefault();
                   handlePhoneChange(e.clipboardData.getData("text"));
                 }}
-              />
-            </label>
-            <label>
-              Original form submission ID (optional)
-              <input
-                type="text"
-                autoComplete="off"
-                placeholder="UUID from your first submission, if you have it"
-                value={form.leadEventId}
-                onChange={(e) => setField("leadEventId", e.target.value)}
               />
             </label>
           </div>
