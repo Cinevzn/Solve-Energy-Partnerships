@@ -43,7 +43,7 @@ export default function ThankYouPage() {
         <p className="eyebrow stage-label">Step 2 of 3</p>
         <h1>Watch the overview, then book your investor partnership call</h1>
         <p className="lead thank-you-lead">
-          You&apos;re one step away from speaking with our team. Skim the video, then lock in a time to
+          You&apos;re one step away from speaking with our team. Watch the video, then lock in a time to
           talk through your market and next steps.
         </p>
 
@@ -128,26 +128,13 @@ export default function ThankYouPage() {
           </div>
         </section>
 
-        <section className="thank-you-next" aria-labelledby="thank-you-next-heading">
-          <h2 id="thank-you-next-heading" className="thank-you-subhead">
-            Step 3: Partner questionnaire
-          </h2>
-          <p className="thank-you-next-copy">
-            After you choose a time, continue to a short questionnaire so we can tailor the call. You can
-            also open this link from email if we send it from our team.
-          </p>
-          <Link href="/questionare" className="btn primary thank-you-next-cta">
-            Continue to questionnaire
-          </Link>
-        </section>
-
         <section className="team-strip team-strip-featured" aria-labelledby="team-strip-heading">
           <h2 id="team-strip-heading" className="team-strip-heading team-strip-heading-featured">
             Meet part of our team
           </h2>
           <p className="team-strip-lead">
-            Partnership at Solve is people-first. These are a few of the folks you may hear from after you
-            book your investor partnership call.
+            Partnership at Solve is people-first. These are a few of the folks you may hear from on your
+            investor partnership call.
           </p>
           <ul className="team-strip-grid team-strip-grid-featured" role="list">
             {TEAM_PHOTOS.map((photo) => (
@@ -169,6 +156,19 @@ export default function ThankYouPage() {
               Still need a time? Book your investor partnership call
             </a>
           </div>
+        </section>
+
+        <section className="thank-you-next" aria-labelledby="thank-you-next-heading">
+          <h2 id="thank-you-next-heading" className="thank-you-subhead">
+            Step 3: Partner questionnaire
+          </h2>
+          <p className="thank-you-next-copy">
+            After you choose a time, continue to a short questionnaire so we can tailor the call. You can
+            also open this link from email if we send it from our team.
+          </p>
+          <Link href="/questionare" className="btn primary thank-you-next-cta">
+            Continue to questionnaire
+          </Link>
         </section>
 
         <p className="fine-print">
