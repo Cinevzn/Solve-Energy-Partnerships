@@ -326,7 +326,7 @@ body {
   border-color: var(--se-green);
 }
 
-/* Taken markets only: Solve mark (faded) — no white Leaflet tile behind icon */
+/* Taken markets only: Solve mark (faded), no white Leaflet tile behind icon */
 .market-map-container .market-map-pin-taken-leaflet.leaflet-div-icon {
   background: transparent !important;
   border: none !important;

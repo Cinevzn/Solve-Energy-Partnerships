@@ -18,7 +18,7 @@ const TRACK_RECORD = [
 const PARTNERSHIP_HIGHLIGHTS = [
   {
     title: "One partner, one market",
-    body: "Each expansion market is offered once. Your interest is in the entity that owns that market — terms are agreed in a term sheet.",
+    body: "Each expansion market is offered once. Your interest is in the entity that owns that market; terms are agreed in a term sheet.",
   },
   {
     title: "Run it or stay passive",
@@ -37,11 +37,11 @@ const PARTNERSHIP_HIGHLIGHTS = [
 const OPERATING_MODEL = [
   {
     title: "Solve head office",
-    body: "System design, permits, utility paperwork, project management, marketing, PR, and accounting — shared across every market we run.",
+    body: "System design, permits, utility paperwork, project management, marketing, PR, and accounting, shared across every market we run.",
   },
   {
     title: "Your local market",
-    body: "Roof surveys, install crews, materials, and field delivery — scaled as volume grows so cost does not run ahead of revenue.",
+    body: "Roof surveys, install crews, materials, and field delivery, scaled as volume grows so cost does not run ahead of revenue.",
   },
 ];
 
@@ -54,7 +54,7 @@ const TEAM_BEHIND = [
 ];
 
 const CALL_PREVIEW = [
-  { step: "1", title: "The conversation", body: "The partnership model and whether it fits you — no commitment on either side." },
+  { step: "1", title: "The conversation", body: "The partnership model and whether it fits you, with no commitment on either side." },
   { step: "2", title: "The numbers", body: "We walk through projections for your market, line by line, with your questions." },
   { step: "3", title: "Term sheet", body: "If there is a fit, price, ownership, and key terms go in writing." },
   { step: "4", title: "Launch", body: "Your counsel reviews the agreement; then we open the market together." },
@@ -136,7 +136,7 @@ export default function ThankYouPage() {
 
         <div className="thank-you-cta-row">
           <a href={`#${BOOKING_SECTION_ID}`} className="btn primary thank-you-scroll-cta" onClick={scrollToBooking}>
-            Jump to calendar — book your investor partnership call
+            Jump to calendar and book your investor partnership call
           </a>
         </div>
 
@@ -151,7 +151,7 @@ export default function ThankYouPage() {
           <ul className="thank-you-booking-perks" role="list">
             <li>~20 minutes with our partnership team</li>
             <li>Discuss the market you selected and what partnership looks like</li>
-            <li>No obligation — clarity on whether Solve is the right fit</li>
+            <li>No obligation. Clarity on whether Solve is the right fit</li>
           </ul>
           <a
             href={`#${BOOKING_SECTION_ID}-calendar`}
@@ -188,7 +188,7 @@ export default function ThankYouPage() {
           <p className="thank-you-offer-lead">
             Solve Energy is expanding city by city with{" "}
             <strong>one accredited partner per market</strong>. Victoria, Metro Vancouver, and the Okanagan
-            already run on the same system your market would use — Calgary and other cities are next.
+            already run on the same system your market would use. Calgary and other cities are next.
           </p>
 
           <ul className="thank-you-stats" role="list">
@@ -220,12 +220,12 @@ export default function ThankYouPage() {
               ))}
             </ul>
             <p className="thank-you-split-tagline">
-              Nothing is invented from scratch in a new city — it is documented, tested, and already running.
+              Nothing is invented from scratch in a new city. It is documented, tested, and already running.
             </p>
           </div>
 
           <p className="thank-you-offer-disclaimer">
-            Summary for discussion only — not an offer to sell securities or investment advice. Returns,
+            Summary for discussion only. Not an offer to sell securities or investment advice. Returns,
             timing, and distributions are illustrative and not guaranteed; terms are set only in a signed
             agreement. Take your own legal, tax, and financial advice before committing capital.
           </p>
@@ -237,7 +237,7 @@ export default function ThankYouPage() {
             Meet the team behind your market
           </h2>
           <p className="team-strip-lead">
-            <strong>Kane Hammontree</strong>, Founder &amp; CEO, built Solve from the ground up — and the same
+            <strong>Kane Hammontree</strong>, Founder &amp; CEO, built Solve from the ground up, and the same
             leadership group that opened our running markets is who you will speak with on your investor
             partnership call.
           </p>
