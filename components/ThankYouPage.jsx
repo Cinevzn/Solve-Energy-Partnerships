@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import BookingExitModal from "@/components/BookingExitModal";
 import SurveyShell from "@/components/SurveyShell";
 
 const CALENDAR_URL = process.env.NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL?.trim();
@@ -134,12 +135,6 @@ export default function ThankYouPage() {
               </p>
             </div>
           )}
-        </div>
-
-        <div className="thank-you-cta-row">
-          <a href={`#${BOOKING_SECTION_ID}`} className="btn primary thank-you-scroll-cta" onClick={scrollToBooking}>
-            Jump to calendar and book your investor partnership call
-          </a>
         </div>
 
         <section
@@ -294,6 +289,7 @@ export default function ThankYouPage() {
           <a href="tel:+18886676583">1-888-667-6583</a>
         </p>
       </div>
+      <BookingExitModal calendarUrl={CALENDAR_URL || undefined} />
     </SurveyShell>
   );
 }
