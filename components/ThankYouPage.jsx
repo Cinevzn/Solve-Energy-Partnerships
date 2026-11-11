@@ -1,12 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import SurveyShell from "@/components/SurveyShell";
 
 const CALENDAR_URL = process.env.NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL?.trim();
 const VIDEO_URL = process.env.NEXT_PUBLIC_BOOKING_VIDEO_URL?.trim();
 const BOOKING_SECTION_ID = "book-investor-partnership-call";
+
+/** Team photo gallery on thank-you page (set true to show again). */
+const SHOW_TEAM_PHOTOS = false;
 
 const TRACK_RECORD = [
   { value: "1,500+", label: "Solar systems installed" },
@@ -251,21 +253,23 @@ export default function ThankYouPage() {
             ))}
           </ul>
 
-          <ul className="team-strip-grid team-strip-grid-featured" role="list">
-            {TEAM_PHOTOS.map((photo) => (
-              <li key={photo.src} className="team-strip-item">
-                <div className="team-strip-photo-wrap team-strip-photo-wrap-featured">
-                  <Image
-                    src={photo.src}
-                    alt={photo.alt}
-                    fill
-                    className="team-strip-photo"
-                    sizes="(max-width: 640px) 85vw, (max-width: 899px) 45vw, (max-width: 1199px) 30vw, 280px"
-                  />
-                </div>
-              </li>
-            ))}
-          </ul>
+          {SHOW_TEAM_PHOTOS ? (
+            <ul className="team-strip-grid team-strip-grid-featured" role="list">
+              {TEAM_PHOTOS.map((photo) => (
+                <li key={photo.src} className="team-strip-item">
+                  <div className="team-strip-photo-wrap team-strip-photo-wrap-featured">
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      className="team-strip-photo"
+                      sizes="(max-width: 640px) 85vw, (max-width: 899px) 45vw, (max-width: 1199px) 30vw, 280px"
+                    />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : null}
 
           <div className="thank-you-call-preview">
             <h3 className="thank-you-call-preview-title">What to expect after you book</h3>
@@ -283,25 +287,6 @@ export default function ThankYouPage() {
               ))}
             </ol>
           </div>
-
-          <div className="thank-you-cta-row thank-you-cta-row-end">
-            <a href={`#${BOOKING_SECTION_ID}`} className="btn primary thank-you-scroll-cta" onClick={scrollToBooking}>
-              Still need a time? Book your investor partnership call
-            </a>
-          </div>
-        </section>
-
-        <section className="thank-you-next" aria-labelledby="thank-you-next-heading">
-          <h2 id="thank-you-next-heading" className="thank-you-subhead">
-            Step 3: Partner questionnaire
-          </h2>
-          <p className="thank-you-next-copy">
-            After you choose a time, continue to a short questionnaire so we can tailor the call. You can
-            also open this link from email if we send it from our team.
-          </p>
-          <Link href="/questionare" className="btn primary thank-you-next-cta">
-            Continue to questionnaire
-          </Link>
         </section>
 
         <p className="fine-print">
