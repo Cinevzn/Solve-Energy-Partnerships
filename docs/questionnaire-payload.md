@@ -2,12 +2,12 @@
 
 `POST /api/questionnaire` with `Content-Type: application/json`.
 
-The public page is **`/questionare`**. Anyone can complete it (e.g. from step 2 or from a **CRM email link**).
+The public page is **`/questionnaire`**. Anyone can complete it (e.g. after booking or from a **CRM email link**). Legacy **`/questionare`** URLs redirect here.
 
-**Funnel:** After step 1 submits, the same browser **session** stores name, email, phone, and lead `eventId`. On `/questionare`, contact fields are **not shown** when that session is present (or when **complete** contact info is in the URL). Otherwise the form asks for contact details.
+**Funnel:** After step 1 submits, the same browser **session** stores name, email, phone, and lead `eventId`. On `/questionnaire`, contact fields are **not shown** when that session is present (or when **complete** contact info is in the URL). Otherwise the form asks for contact details.
 
 **Optional query prefill (CRM / automation):**  
-`/questionare?firstName=Jane&lastName=Doe&email=jane%40example.com&phone=6045551234`  
+`/questionnaire?firstName=Jane&lastName=Doe&email=jane%40example.com&phone=6045551234`  
 Optional: `leadEventId=<uuid>` (or `event_id`) to tie back to step 1’s `meta.event_id`; omit if unknown.
 
 ## Environment

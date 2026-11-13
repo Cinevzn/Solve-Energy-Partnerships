@@ -24,7 +24,7 @@ Open http://localhost:3000
 | `/connect/v1` | Step 1 (v1): market list + same survey + webhook |
 | `/connect/v2` | Redirects to `/connect` (legacy URL) |
 | `/connect/thank-you` | Step 2: calendar booking (+ optional VSL when `NEXT_PUBLIC_THANK_YOU_SHOW_VIDEO=true`) |
-| `/questionare` | Step 3: partner questionnaire → `POST /api/questionnaire`. Contact fields show only if not already known (funnel session after step 1, or full query prefill for CRM) |
+| `/questionnaire` | Step 3: partner questionnaire → `POST /api/questionnaire`. Contact fields show only if not already known (funnel session after step 1, or full query prefill for CRM). `/questionare` redirects here (legacy typo) |
 
 Without `GHL_INBOUND_WEBHOOK_URL`, the leads API logs the JSON payload to the server console instead of forwarding. The questionnaire API uses `GHL_QUESTIONNAIRE_WEBHOOK_URL` when set, otherwise falls back to the same URL.
 
