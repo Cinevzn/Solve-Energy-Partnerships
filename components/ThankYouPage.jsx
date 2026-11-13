@@ -3,12 +3,16 @@
 import Image from "next/image";
 import BookingExitModal from "@/components/BookingExitModal";
 import SurveyShell from "@/components/SurveyShell";
+import { thankYouShowVideo } from "@/lib/thankYouFeatures";
 
 const CALENDAR_URL = process.env.NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL?.trim();
 const VIDEO_URL = process.env.NEXT_PUBLIC_BOOKING_VIDEO_URL?.trim();
 const BOOKING_SECTION_ID = "book-investor-partnership-call";
 
-/** Team photo gallery on thank-you page (set true to show again). */
+/** Meet-the-team block on thank-you page (set true to show again). */
+const SHOW_TEAM_SECTION = false;
+
+/** Team photo gallery inside meet-the-team (set true when section is on). */
 const SHOW_TEAM_PHOTOS = false;
 
 const TRACK_RECORD = [
@@ -91,53 +95,30 @@ function scrollToBooking(e) {
   document.getElementById(BOOKING_SECTION_ID)?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-export default function ThankYouPage() {
+function CallPreviewSteps() {
   return (
-    <SurveyShell compact progress={100}>
-      <div className="thank-you">
-        <p className="eyebrow stage-label">Step 2 of 3</p>
-        <h1>Watch the overview, then book your investor partnership call</h1>
-        <p className="lead thank-you-lead">
-          You&apos;re one step away from speaking with our team. Watch the video, then lock in a time to
-          talk through your market and next steps.
-        </p>
-
-        <div className="thank-you-booking-banner" role="region" aria-label="Book an investor partnership call">
-          <p className="thank-you-booking-banner-kicker">Next up</p>
-          <p className="thank-you-booking-banner-title">Schedule your investor partnership call</p>
-          <p className="thank-you-booking-banner-copy">
-            Pick a time below. We&apos;ll confirm by email and come prepared for your market and goals.
-          </p>
-          <a href={`#${BOOKING_SECTION_ID}`} className="btn primary thank-you-booking-banner-btn" onClick={scrollToBooking}>
-            Book my investor partnership call
-          </a>
-        </div>
-
-        <div className="video-wrap">
-          {VIDEO_URL ? (
-            <iframe
-              title="Solve Energy partner overview"
-              src={VIDEO_URL}
-              className="video-iframe"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              loading="lazy"
-            />
-          ) : (
-            <div className="video-placeholder" aria-label="Video placeholder">
-              <span className="video-placeholder-icon" aria-hidden="true">
-                ▶
-              </span>
-              <p className="video-placeholder-title">Partner overview video</p>
-              <p className="video-placeholder-copy">
-                Add your video URL in{" "}
-                <code>NEXT_PUBLIC_BOOKING_VIDEO_URL</code> (YouTube embed, Vimeo, etc.).
-              </p>
+    <div className="thank-you-call-preview">
+      <h3 className="thank-you-call-preview-title">What to expect after you book</h3>
+      <ol className="thank-you-call-steps" role="list">
+        {CALL_PREVIEW.map((item) => (
+          <li key={item.step} className="thank-you-call-step">
+            <span className="thank-you-call-step-num" aria-hidden="true">
+              {item.step}
+            </span>
+            <div>
+              <h4>{item.title}</h4>
+              <p>{item.body}</p>
             </div>
-          )}
-        </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
 
-        <section
+function BookingSection() {
+  return (
+    <section
           id={BOOKING_SECTION_ID}
           className="thank-you-booking-block"
           aria-labelledby="thank-you-booking-heading"
@@ -175,7 +156,75 @@ export default function ThankYouPage() {
               </div>
             )}
           </div>
-        </section>
+    </section>
+  );
+}
+
+export default function ThankYouPage() {
+  const showVideo = thankYouShowVideo();
+
+  return (
+    <SurveyShell compact progress={100}>
+      <div className="thank-you">
+        <p className="eyebrow stage-label">Step 2 of 3</p>
+        {showVideo ? (
+          <>
+            <h1>Watch the overview, then book your investor partnership call</h1>
+            <p className="lead thank-you-lead">
+              You&apos;re one step away from speaking with our team. Watch the video, then lock in a time to
+              talk through your market and next steps.
+            </p>
+
+            <div className="thank-you-booking-banner" role="region" aria-label="Book an investor partnership call">
+              <p className="thank-you-booking-banner-kicker">Next up</p>
+              <p className="thank-you-booking-banner-title">Schedule your investor partnership call</p>
+              <p className="thank-you-booking-banner-copy">
+                Pick a time below. We&apos;ll confirm by email and come prepared for your market and goals.
+              </p>
+              <a
+                href={`#${BOOKING_SECTION_ID}`}
+                className="btn primary thank-you-booking-banner-btn"
+                onClick={scrollToBooking}
+              >
+                Book my investor partnership call
+              </a>
+            </div>
+
+            <div className="video-wrap">
+              {VIDEO_URL ? (
+                <iframe
+                  title="Solve Energy partner overview"
+                  src={VIDEO_URL}
+                  className="video-iframe"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                />
+              ) : (
+                <div className="video-placeholder" aria-label="Video placeholder">
+                  <span className="video-placeholder-icon" aria-hidden="true">
+                    ▶
+                  </span>
+                  <p className="video-placeholder-title">Partner overview video</p>
+                  <p className="video-placeholder-copy">
+                    Add your video URL in{" "}
+                    <code>NEXT_PUBLIC_BOOKING_VIDEO_URL</code> (YouTube embed, Vimeo, etc.).
+                  </p>
+                </div>
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            <h1>Book your investor partnership call</h1>
+            <p className="lead thank-you-lead">
+              You&apos;re one step away from speaking with our team. Choose a time below and we&apos;ll come
+              prepared for your market and goals.
+            </p>
+          </>
+        )}
+
+        <BookingSection />
 
         <section className="thank-you-offer" aria-labelledby="thank-you-offer-heading">
           <p className="thank-you-offer-kicker">What you are partnering into</p>
@@ -228,61 +277,50 @@ export default function ThankYouPage() {
           </p>
         </section>
 
-        <section className="team-strip team-strip-featured" aria-labelledby="team-strip-heading">
-          <p className="thank-you-offer-kicker">People-first partnership</p>
-          <h2 id="team-strip-heading" className="team-strip-heading team-strip-heading-featured">
-            Meet the team behind your market
-          </h2>
-          <p className="team-strip-lead">
-            <strong>Kane Hammontree</strong>, Founder &amp; CEO, built Solve from the ground up, and the same
-            leadership group that opened our running markets is who you will speak with on your investor
-            partnership call.
-          </p>
+        {SHOW_TEAM_SECTION ? (
+          <section className="team-strip team-strip-featured" aria-labelledby="team-strip-heading">
+            <p className="thank-you-offer-kicker">People-first partnership</p>
+            <h2 id="team-strip-heading" className="team-strip-heading team-strip-heading-featured">
+              Meet the team behind your market
+            </h2>
+            <p className="team-strip-lead">
+              <strong>Kane Hammontree</strong>, Founder &amp; CEO, built Solve from the ground up, and the same
+              leadership group that opened our running markets is who you will speak with on your investor
+              partnership call.
+            </p>
 
-          <ul className="thank-you-team-roles" role="list">
-            {TEAM_BEHIND.map((item) => (
-              <li key={item.role} className="thank-you-team-role">
-                <span className="thank-you-team-role-name">{item.role}</span>
-                <span className="thank-you-team-role-detail">{item.detail}</span>
-              </li>
-            ))}
-          </ul>
-
-          {SHOW_TEAM_PHOTOS ? (
-            <ul className="team-strip-grid team-strip-grid-featured" role="list">
-              {TEAM_PHOTOS.map((photo) => (
-                <li key={photo.src} className="team-strip-item">
-                  <div className="team-strip-photo-wrap team-strip-photo-wrap-featured">
-                    <Image
-                      src={photo.src}
-                      alt={photo.alt}
-                      fill
-                      className="team-strip-photo"
-                      sizes="(max-width: 640px) 85vw, (max-width: 899px) 45vw, (max-width: 1199px) 30vw, 280px"
-                    />
-                  </div>
+            <ul className="thank-you-team-roles" role="list">
+              {TEAM_BEHIND.map((item) => (
+                <li key={item.role} className="thank-you-team-role">
+                  <span className="thank-you-team-role-name">{item.role}</span>
+                  <span className="thank-you-team-role-detail">{item.detail}</span>
                 </li>
               ))}
             </ul>
-          ) : null}
 
-          <div className="thank-you-call-preview">
-            <h3 className="thank-you-call-preview-title">What to expect after you book</h3>
-            <ol className="thank-you-call-steps" role="list">
-              {CALL_PREVIEW.map((item) => (
-                <li key={item.step} className="thank-you-call-step">
-                  <span className="thank-you-call-step-num" aria-hidden="true">
-                    {item.step}
-                  </span>
-                  <div>
-                    <h4>{item.title}</h4>
-                    <p>{item.body}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
+            {SHOW_TEAM_PHOTOS ? (
+              <ul className="team-strip-grid team-strip-grid-featured" role="list">
+                {TEAM_PHOTOS.map((photo) => (
+                  <li key={photo.src} className="team-strip-item">
+                    <div className="team-strip-photo-wrap team-strip-photo-wrap-featured">
+                      <Image
+                        src={photo.src}
+                        alt={photo.alt}
+                        fill
+                        className="team-strip-photo"
+                        sizes="(max-width: 640px) 85vw, (max-width: 899px) 45vw, (max-width: 1199px) 30vw, 280px"
+                      />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+
+            <CallPreviewSteps />
+          </section>
+        ) : (
+          <CallPreviewSteps />
+        )}
 
         <p className="fine-print">
           Solve Energy · Victoria · Langley · Kelowna ·{" "}

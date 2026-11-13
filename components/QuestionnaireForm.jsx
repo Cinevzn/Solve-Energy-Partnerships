@@ -7,6 +7,7 @@ import SurveyShell from "@/components/SurveyShell";
 import { readLeadSession } from "@/lib/leadSession";
 import { formatPhoneDisplay, isCompleteUsPhone, phoneDigitsOnly } from "@/lib/phone";
 import { submitQuestionnaire } from "@/lib/submitQuestionnaire";
+import { thankYouShowVideo } from "@/lib/thankYouFeatures";
 
 const Q1_OPTIONS = [
   { value: "hands_on_run_market", label: "I want to be hands on and run it" },
@@ -746,7 +747,7 @@ export default function QuestionnaireForm() {
 
         <div className="nav-row questionnaire-submit-row">
           <Link href="/connect/thank-you" className="btn ghost">
-            Back to video and booking
+            {thankYouShowVideo() ? "Back to video and booking" : "Back to booking"}
           </Link>
           <button type="submit" className="btn primary" disabled={submitting}>
             {submitting ? "Submitting…" : "Submit questionnaire"}

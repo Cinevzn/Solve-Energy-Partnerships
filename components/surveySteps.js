@@ -1,4 +1,5 @@
 import { MARKET_OPTIONS } from "@/lib/markets";
+import { thankYouShowVideo } from "@/lib/thankYouFeatures";
 
 export const ACCREDITED_INVESTOR_OPTIONS = [
   { value: "income_over_250k", label: "Yes, I make over $250,000 per year" },
@@ -122,8 +123,9 @@ export function buildSurveySteps(marketPresentation = "list") {
       id: "contact",
       type: "contact",
       title: "How can we reach you?",
-      subtitle:
-        "Enter your details so we can follow up after you watch the overview and book your investor partnership call.",
+      subtitle: thankYouShowVideo()
+        ? "Enter your details so we can follow up after you watch the overview and book your investor partnership call."
+        : "Enter your details so we can follow up after you book your investor partnership call.",
     },
   ];
 }
