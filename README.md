@@ -34,7 +34,7 @@ Without `GHL_INBOUND_WEBHOOK_URL`, the leads API logs the JSON payload to the se
 |----------|--------|---------|
 | `GHL_INBOUND_WEBHOOK_URL` | Server | GHL inbound webhook (step 1 lead) |
 | `GHL_QUESTIONNAIRE_WEBHOOK_URL` | Server | Optional separate GHL URL for step 3 |
-| `NEXT_PUBLIC_FB_PIXEL_ID` | Public | Meta Pixel (when ready) |
+| `NEXT_PUBLIC_FB_PIXEL_ID` | Public | Meta Pixel (`2199077957352715`) — see [docs/meta-pixel.md](./docs/meta-pixel.md) |
 | `NEXT_PUBLIC_GHL_CALENDAR_EMBED_URL` | Public | Step 2 calendar iframe `src` |
 | `NEXT_PUBLIC_THANK_YOU_SHOW_VIDEO` | Public | `true` = step 2 shows VSL copy + embed (requires video URL). Default off = book-only |
 | `NEXT_PUBLIC_BOOKING_VIDEO_URL` | Public | Step 2 video iframe `src` when show-video flag is on |
